@@ -1,0 +1,39 @@
+﻿Il file csv ha solamente quei campi con quei nomi?  posso lavorare con il nome statico della colonna o c'è il rischio che essi cambiano? nomi fissi
+Sono presenti solamente 2 tipi di utenti sul sito web? amministratore e utente normale? amministratore master, amministratore e utente normale
+L'utente normale cosa fa? l'utente può guardare. Cosa può vedere nel sito? si tutto ma non tocca
+eliminazione flag=0 o eliminazione definitiva? definitiva
+
+## 1
+Cosa esattamente? tutto? dati importati possono essere modificati in seguito o sono dati solo in lettura? 
+inserire o eliminare manualmente apprendisti. modificare i dati se possibile. 
+
+## 2
+Quali dati bisogna sapere dell'utente del sito, quali dati si devono indicare nella registrazione? nome cognome email password e poi? data di nascita, numero di telefono, domicilio? prevedere un captcha? Solo email e password
+Il login avviene tramite email e password? si
+      
+## 3
+Come viene gestita l'eliminazione tra amministratore e amministratore? l'amministratore può eliminare gli utenti normali, il master può eliminare l'amministratore o rimuovere i suoi permessi
+come viene gestita la conferma della nuova password? viene confermata automaticamente dall'amministratore (quindi modificata subito) o l'utente deve confermare il cambio della password per essere realmente definita come cambiata? entrambi a dipendenza di chi effettua l'azione
+
+## 4
+I dati vengono quindi raggruppati sul database annualmente? Si, difatti che non puoi riutilizzare l'email utilizza un id per l'identficazione degli apprendisti. 
+Se decido di eliminare definitivamente il gruppo annuale elimino anche tutti i dati ( apprendisti,informazioni,...) legati ad esso? Eliminazione definitiva
+
+"i dati visibili nei campi della schermata dovranno poter essere copiati così da poterli incollare su altri file, se vi è la necessita". Cosa si intende esattamente con questa frase? semplici input readonly? Sì
+
+##5 
+"Prevedere anche un campo cerca per altre visioni" cosa si intende Potrebbe spiegarmi cosa intende esattamente con questa frase "Bisogna fare attenzione al fatto che in molti campi le linee di testo sono multiple."? L'excel è su due righe, niente di che, fai attenzione a questo
+
+## 6
+Come avviene la creazione della pagina esattamente? Questa pagina deve essere separata dal file csv, mi serve per avere una visione dei datori-formatori senza che venga interferita dall'importazione del file. Voglio essere io ad inserire manualmente, e in seguito modificarli se ho bisogno, questi dati. Per la gestione di questa pagina puoi usare una tabella separata dalle altre.
+
+## 7 
+quali sono i campi da poter vedere nei report? Tutti e selezionati di default solamente quelli elencati nel QdC o anche altri? Tutti quelli presenti sul CSV, di default quelli scelti assieme, vb l'ultima domanda
+
+## 9 
+I gruppi di email prendono da 1 a N email e l'email può far parte da 0 a N gruppi di email? si	
+
+un datore ha più formatori e un formatore ha solo un datore o un formatore ha solo un datore e il datore ha solo un formatore? 1 azienda 1 o + formatori, 1 formatore 1 azienda
+Durante la chiamata al telefono lei mi ha detto che ogni anno vengono importati tutti gli apprendisti, ciò implica che al 4 anno vi saranno 4 records per ogni apprendista. Come viene gestito ad esempio il campo dell'indirizzo? Viene modificato in tutti gli altri anni o rimane in quelli precedenti il vecchio e nell'ultimo quello corretto e aggiornato? No
+Dato che lei è d'accordo che la pagina che lei mi ha allegato "Design estrazione dati excel" sarà il dettaglio delle informazioni, ho bisogno di sapere quali dati voleva vedere nella pagina principale, io pensavo a cognome,nome apprendista, inizio fine contratto, datore di lavoro, formatore e datore lavoro email, mi dica lei se ne vuole anche altri. Vanno bene quelli
+
