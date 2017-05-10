@@ -23,11 +23,11 @@
 				}
 			}
 			else{
-				echo  "<script>document.getElementById('messaggio').innerHTML='le due password non corrispondono';document.getElementById('messaggio').setAttribute('class','control-label alert alert-danger')</script>";
+				echo  "<script>document.getElementById('messaggio').innerHTML='le due password non corrispondono';document.getElementById('messaggio').setAttribute('class','col-xs-12 alert alert-danger')</script>";
 			}
 		}
 		else{
-			echo  "<script>document.getElementById('messaggio').innerHTML='riempire entrambi i campi';document.getElementById('messaggio').setAttribute('class','control-label alert alert-warning')</script>";
+			echo  "<script>document.getElementById('messaggio').innerHTML='riempire entrambi i campi';document.getElementById('messaggio').setAttribute('class','col-xs-12 alert alert-warning')</script>";
 		}
 	}
 ?>

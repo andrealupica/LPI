@@ -1,0 +1,124 @@
+<?php
+if(isset($_POST["insertNome"])){ // dato che il submit viene effettuato con il controllo non serve il controllo del set di tutto
+  $nome = $_POST["insertNome"];
+  $nascita = $_POST["insertNascita"];
+  $contratto = $_POST["insertContratto"];
+  $statuto = $_POST["insertStatuto"];
+  $indirizzo = $_POST["insertIndirizzo"];
+  $domicilio = $_POST["insertDomicilio"];
+  $telefono = $_POST["insertTelefono"];
+  $professione = $_POST["insertProfessione"];
+  $sede = $_POST["insertSede"];
+  $rappresentante = $_POST["insertRappresentante"];
+  $inizio = $_POST["insertInizio"];
+  $fine = $_POST["insertFine"];
+  $scolastico = $_POST["insertScolastico"];
+  $formatore = $_POST["formatoreSel"];
+  $datore = $_POST["datoreSel"];
+  $gruppo = $_POST["gruppoSel"];
+  //echo "sede: ".$sede;
+  $sedeId = 0;
+  // controlla se esiste la sede altrimenti aggiungila
+  $inizio1 = explode('.', $inizio);
+  $inizio = $inizio1[2].'-'.$inizio1[1].'-'.$inizio1[0];
+  $nascita1 = explode('.', $nascita);
+    $nascita = $nascita1[2].'-'.$nascita1[1].'-'.$nascita1[0];
+
+  try{
+    $query = $conn->prepare("SELECT sed_id AS 'id' from sede where sed_nome=:sede");
+    $query->bindParam(':sede',$sede);
+    $query->execute();
+    if($query->rowCount()==0){
+      try{
+        $querySede = $conn->prepare("INSERT into sede(sed_nome) values(:sede)");
+        $querySede->bindParam(':sede',$sede);
+        $querySede->execute();
+        $sedeID=1;
+      }
+      catch(PDOException $e)
+      {
+        echo $e;
+      }
+    }
+    else{
+      $row = $query->fetch(PDO::FETCH_ASSOC);
+      $sedeId=$row["id"];
+    }
+  }
+  catch(PDOException $e)
+  {
+    echo $e;
+  }
+
+  try{
+    $app = $conn->prepare("SELECT app_nome from apprendista where app_idContratto=:contratto && app_annoFine=:fine && app_annoScolastico=:scolastico");
+    $app->bindParam(':contratto',$contratto);
+    $app->bindParam(':scolastico',$scolastico);
+    $app->bindParam(':fine',$fine);
+    $app->execute();
+    if($app->rowCount()==0){
+      try{
+        $query = $conn->prepare("INSERT INTO apprendista(app_idContratto, app_nome, app_telefono, app_dataNascita,
+          app_rappresentante, app_statuto, app_indirizzo, app_domicilio,
+          app_professione, app_annoScolastico, app_annoFine, app_dataInizio,
+          grui_id, sed_id, dat_id, for_email) VALUES
+          (:contratto,:nome,:telefono,:nascita,:rappresentante,:statuto
+          ,:indirizzo,:domicilio,:professione,
+          :scolastico,:fine,:inizio,:gruppo,:sede,
+          :datore,:formatore)");
+        $query->bindParam(':contratto',$contratto);
+        $query->bindParam(':nome',$nome);
+        $query->bindParam(':telefono',$telefono);
+        $query->bindParam(':nascita',$nascita);
+        $query->bindParam(':rappresentante',$rappresentante);
+        $query->bindParam(':statuto',$statuto);
+        $query->bindParam(':indirizzo',$indirizzo);
+        $query->bindParam(':domicilio',$domicilio);
+        $query->bindParam(':professione',$professione);
+        $query->bindParam(':scolastico',$scolastico);
+        $query->bindParam(':fine',$fine);
+        $query->bindParam(':inizio',$inizio);
+        $query->bindParam(':gruppo',$gruppo);
+        $query->bindParam(':sede',$sedeId);
+        $query->bindParam(':datore',$datore);
+        $query->bindParam(':formatore',$formatore);
+        $query->execute();
+        echo "<script> location.href='apprendisti.php'</script>";
+      }
+      catch(PDOException $e)
+      {
+        echo $e;
+      }
+    }
+    else{
+      echo  "<script>document.getElementById('errori').innerHTML='l apprendista esiste già quindi non è stato inserito';document.getElementById('errori').setAttribute('class','col-xs-6 alert alert-danger')</script>";
+    }
+  }
+  catch(PDOException $e)
+  {
+    echo $e;
+  }
+}
+
+if(isset($_POST["apprendistaCancellato"]) AND isset($_SESSION['email'])){
+  $elimina = $_POST["apprendistaCancellato"];
+  //echo "post: ".$elimina;
+  $el = explode("/",$elimina);
+  $contratto = $el[0];
+  $scolastico = $el[1];
+  $fine = $el[2];
+  //echo $contratto.$scolastico.$fine;
+  try{
+    $query= $conn->prepare("UPDATE apprendista set app_flag=0  where app_idContratto=:contratto && app_annoScolastico=:scolastico && app_annoFine=:fine");
+    $query->bindParam(':contratto',$contratto);
+    $query->bindParam(':scolastico',$scolastico);
+    $query->bindParam(':fine',$fine);
+    $query->execute();
+    echo "<script> location.href='apprendisti.php'</script>";
+  }
+  catch(PDOException $e)
+  {
+    echo $e;
+  }
+}
+?>

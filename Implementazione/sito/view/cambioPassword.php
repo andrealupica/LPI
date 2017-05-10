@@ -15,13 +15,13 @@
 
 </head>
 <body class="body">
-	<div class="container">
+	<div class="container contenitore">
 		<div class="col-md-12">
 			<div class="main-login main-center">
 				<h1>Cambio Password</h1>
 				<form class="form-horizontal" method="post" action="">
 					<div class="form-group inputForm">
-						<label for="email" class="cols-sm-2 control-label">Password:</label>
+						<label for="password" class="cols-sm-2 control-label">Password:</label>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>

@@ -7,8 +7,8 @@
         <option id="color.recent"><![CDATA[#000000]]></option>
     </view>
     <view id="resource-table">
-        <field id="0" name="Nome" width="52" order="0"/>
-        <field id="1" name="Ruolo predefinito" width="47" order="1"/>
+        <field id="0" name="Nome" width="50" order="0"/>
+        <field id="1" name="Ruolo predefinito" width="49" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -48,10 +48,11 @@
         <task id="4" name="implementazione" meeting="false" start="2017-05-04" duration="14" complete="0" expand="true">
             <task id="19" name="database" meeting="false" start="2017-05-04" duration="3" complete="0" expand="true"/>
             <task id="17" name="login" meeting="false" start="2017-05-08" duration="1" complete="0" expand="true"/>
-            <task id="55" name="password dimenticata" meeting="false" start="2017-05-09" duration="1" complete="0" expand="true"/>
-            <task id="21" name="cambio password" meeting="false" start="2017-05-09" duration="1" complete="0" expand="true"/>
-            <task id="25" name="gestione account" meeting="false" start="2017-05-09" duration="2" complete="0" expand="true"/>
-            <task id="61" name="informazioni apprendista" meeting="false" start="2017-05-10" duration="1" complete="0" expand="true"/>
+            <task id="55" name="password dimenticata" meeting="false" start="2017-05-08" duration="1" complete="0" expand="true"/>
+            <task id="21" name="cambio password" meeting="false" start="2017-05-08" duration="1" complete="0" expand="true"/>
+            <task id="25" name="gestione account" meeting="false" start="2017-05-09" duration="1" complete="0" expand="true"/>
+            <task id="82" name="menu" meeting="false" start="2017-05-09" duration="1" complete="0" expand="true"/>
+            <task id="61" name="informazioni apprendista" meeting="false" start="2017-05-09" duration="2" complete="0" expand="true"/>
             <task id="63" name="inserimento apprendista" meeting="false" start="2017-05-10" duration="1" complete="0" expand="true"/>
             <task id="65" name="modifica apprendista" meeting="false" start="2017-05-10" duration="1" complete="0" expand="true"/>
             <task id="67" name="dettagli apprendista" meeting="false" start="2017-05-10" duration="1" complete="0" expand="true"/>

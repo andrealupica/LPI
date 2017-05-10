@@ -16,7 +16,7 @@
 </head>
 <body class="body">
 
-	<div class="container">
+	<div class="container contenitore">
 		<div class="col-md-12">
 			<div class="main-login main-center">
 				<h1>Password Dimenticata</h1>
@@ -26,7 +26,7 @@
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-								<input type="text" class="form-control" name="email" id="email" required="required" placeholder="inserire la tua e-mail"/>
+								<input type="email" class="form-control" name="email" id="email" required="required" placeholder="inserire la tua e-mail"/>
 							</div>
 						</div>
 					</div>
@@ -36,7 +36,7 @@
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-								<input type="text" class="form-control" name="reemail" id="reemail" required="required" placeholder="ripeti la tua email"/>
+								<input type="email" class="form-control" name="reemail" id="reemail" required="required" placeholder="ripeti la tua email"/>
 							</div>
 						</div>
 					</div>

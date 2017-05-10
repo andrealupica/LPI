@@ -17,7 +17,7 @@ $(document).ready(function(){
 });
 </script>
 <body class="body">
-	<div class="container">
+	<div class="container contenitore">
 		<div class="col-md-12">
 			<div class="main-login main-center">
 				<h1>Login</h1>
@@ -27,7 +27,7 @@ $(document).ready(function(){
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-								<input type="text" class="form-control" name="email" id="email" required="required" placeholder="inserire la tua e-mail" />
+								<input type="email" class="form-control" name="email" id="email" required="required" placeholder="inserire la tua e-mail" />
 							</div>
 						</div>
 					</div>
@@ -53,7 +53,7 @@ $(document).ready(function(){
               </a>
             </div>
             <div class="col-xs-0 col-sm-1"></div>
-            <div class="cols-sm-3" id="messaggio">
+            <div class="col-sm-3" id="messaggio">
             </div>
           </div>
 				</form>
