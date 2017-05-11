@@ -26,7 +26,7 @@ if(isset($_SESSION["email"])){?>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="apprendisti.php">Apprendisti</a></li>
-        <li><a href="#">Formatori</a></li>
+        <li><a href="formatori.php">Formatori</a></li>
         <li><a href="#">Datori di lavoro</a></li>
         <?php
           if(($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master")){

@@ -79,6 +79,12 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
     // quando il bottone per i checkbox viene cliccato
     $("#bCheckbox").click(function(){
       $("#checkbox").toggle();
+      if($("#bCheckbox").text()=="Nascondi Checkbox"){
+        $("#bCheckbox").text("Visualizza Checkbox");
+      }
+      else{
+        $("#bCheckbox").text("Nascondi Checkbox");
+      }
     });
 
 // quando il valore del select del datore cambia
@@ -90,7 +96,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
           data:{datoreSel:valore},
           success: function(result){
             result=JSON.parse(result);
-            alert(result);
+            //alert(result);
             $("#formatoreSel").find("option").remove();
             for (var i = 0; i < result.length; i++) {
               risultato = result[i].split("/");
@@ -289,7 +295,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
             <input type="text" class="form-control" id="search"></input>
           </div>
         </div>
-        <?php             if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>?>
+        <?php             if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
         <div class="col-sm-2 col-xs-6">
           <button class="btn btn-primary col-xs-12" data-toggle="modal" data-target="#myModalI" onclick="modalInsert()">
             <span class="glyphicon glyphicon-pencil"></span> inserisci
@@ -401,14 +407,17 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
             <td class="tbdatore"><?php echo $row["datore"] ?></td>
             <td class="tbformatore"><?php echo $row["formatore"] ?></td>
             <td>
-              <button type="button" name='buttonE' id="<?php echo $row['contratto']?>" class="btn btn-primary btn-md">
-                 <span class="glyphicon glyphicon-option-horizontal"></span>
-              </button>
+              <form method="post" action="apprendistiDettaglio.php">
+                <button type="submit" name='buttonD' id="<?php echo $row['contratto']?>" class="btn btn-primary btn-md">
+                   <span class="glyphicon glyphicon-option-horizontal"></span>
+                </button>
+                <input type="hidden" name="dettaglio" value="<?php echo $row['contratto']."/".$row["annoScolastico"]."/".$row["annoFine"];?>';" />
+              </form>
             </td>
             <?php if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
             <td>
               <form method="post" action="apprendistiModifica.php">
-                <button type="button" name='buttonM' id="<?php echo $row['contratto']?>" class="btn btn-info btn-md">
+                <button type="submit" name='buttonM' id="<?php echo $row['contratto']?>" class="btn btn-info btn-md">
                    <span class="glyphicon glyphicon-edit"></span>
                 </button>
                 <input type="hidden" name="modifica" value="<?php echo $row['contratto']."/".$row["annoScolastico"]."/".$row["annoFine"];?>';" />
@@ -436,11 +445,11 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Eliminazione account</h4>
+                  <h4 class="modal-title">Eliminazione apprendista</h4>
                 </div>
                 <div class="modal-body">
                   <div class="alert alert-danger">
-                    Sei sicuro di voler eliminare l'account?
+                    Sei sicuro di voler eliminare l apprendista?
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -550,7 +559,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
                         <option selected="true" value="0">-- seleziona --</option>
                         <?php
                         try{
-                          $gruppo = $conn->prepare("SELECT dat_nome 'nome', dat_id AS 'id' from datore");
+                          $gruppo = $conn->prepare("SELECT dat_nome 'nome', dat_id AS 'id' from datore where dat_flag=1");
                           $gruppo->execute();
                         }
                         catch(PDOException $e)
@@ -594,6 +603,8 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
                       </div>
                     </span>
                     </div>
+                    <input type="hidden" name="insert" value=""/>
+                    <!-- <input type="hidden" name="insert" value="<?php echo $row['contratto']."/".$row["annoScolastico"]."/".$row["annoFine"];?>"/>-->
                   </form>
                 </div>
                 <div class="modal-footer">

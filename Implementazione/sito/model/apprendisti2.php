@@ -2,7 +2,7 @@
 include_once "../connection.php";
 if(isset($_POST["datoreSel"])){
   $datoreId = $_POST["datoreSel"];
-  $query = $conn->prepare("SELECT for_nome AS 'nome',for_email AS 'email' from formatore where dat_id=:datore");
+  $query = $conn->prepare("SELECT for_nome AS 'nome',for_email AS 'email' from formatore where dat_id=:datore AND for_flag=1");
   $query->bindParam(':datore',$datoreId);
   $query->execute();
   $nomi=array();

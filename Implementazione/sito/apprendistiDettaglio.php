@@ -1,8 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION["email"])AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+if(isset($_SESSION["email"])){
   include_once "connection.php";
-  include_once "view/apprendistiModifica.php";
+  include_once "view/apprendistiDettaglio.php";
   include_once "model/apprendisti.php";
 }
 else{

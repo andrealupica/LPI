@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST["insertNome"])){ // dato che il submit viene effettuato con il controllo non serve il controllo del set di tutto
+if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){ // dato che il submit viene effettuato con il controllo non serve il controllo del set di tutto
   $nome = $_POST["insertNome"];
   $nascita = $_POST["insertNascita"];
   $contratto = $_POST["insertContratto"];
@@ -20,9 +20,21 @@ if(isset($_POST["insertNome"])){ // dato che il submit viene effettuato con il c
   $sedeId = 0;
   // controlla se esiste la sede altrimenti aggiungila
   $inizio1 = explode('.', $inizio);
+  if($inizio1[2]>31){
+    $inizio1[2]=0000;
+  }
+  if($inizio1[1]>12){
+    $inizio1[1]=00;
+  }
   $inizio = $inizio1[2].'-'.$inizio1[1].'-'.$inizio1[0];
   $nascita1 = explode('.', $nascita);
-    $nascita = $nascita1[2].'-'.$nascita1[1].'-'.$nascita1[0];
+  if($nascita1[2]>31){
+    $nascita1[2]=0000;
+  }
+  if($nascita1[1]>12){
+    $nascita1[1]=00;
+  }
+  $nascita = $nascita1[2].'-'.$nascita1[1].'-'.$nascita1[0];
 
   try{
     $query = $conn->prepare("SELECT sed_id AS 'id' from sede where sed_nome=:sede");
@@ -100,7 +112,7 @@ if(isset($_POST["insertNome"])){ // dato che il submit viene effettuato con il c
   }
 }
 
-if(isset($_POST["apprendistaCancellato"]) AND isset($_SESSION['email'])){
+if(isset($_POST["apprendistaCancellato"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
   $elimina = $_POST["apprendistaCancellato"];
   //echo "post: ".$elimina;
   $el = explode("/",$elimina);
@@ -115,6 +127,90 @@ if(isset($_POST["apprendistaCancellato"]) AND isset($_SESSION['email'])){
     $query->bindParam(':fine',$fine);
     $query->execute();
     echo "<script> location.href='apprendisti.php'</script>";
+  }
+  catch(PDOException $e)
+  {
+    echo $e;
+  }
+}
+
+if(isset($_POST["modifica"]) && isset($_POST["dati"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+  $nome = $_POST["insertNome"];
+  $nascita = $_POST["insertNascita"];
+  $contratto = $_POST["insertContratto"];
+  $statuto = $_POST["insertStatuto"];
+  $indirizzo = $_POST["insertIndirizzo"];
+  $domicilio = $_POST["insertDomicilio"];
+  $telefono = $_POST["insertTelefono"];
+  $professione = $_POST["insertProfessione"];
+  $sede = $_POST["insertSede"];
+  $rappresentante = $_POST["insertRappresentante"];
+  $inizio = $_POST["insertInizio"];
+  $fine = $_POST["insertFine"];
+  $scolastico = $_POST["insertScolastico"];
+  $formatore = $_POST["formatoreSel"];
+  $datore = $_POST["datoreSel"];
+  $gruppo = $_POST["gruppoSel"];
+  $osservazioni = $_POST["osservazioni"];
+
+  $inizio1 = explode('.', $inizio);
+  $inizio = $inizio1[2].'-'.$inizio1[1].'-'.$inizio1[0];
+  $nascita1 = explode('.', $nascita);
+  $nascita = $nascita1[2].'-'.$nascita1[1].'-'.$nascita1[0];
+
+      try{
+        $query = $conn->prepare("SELECT sed_id AS 'id' from sede where sed_nome=:sede");
+        $query->bindParam(':sede',$sede);
+        $query->execute();
+        if($query->rowCount()==0){
+          try{
+            $querySede = $conn->prepare("INSERT into sede(sed_nome) values(:sede)");
+            $querySede->bindParam(':sede',$sede);
+            $querySede->execute();
+            $sedeID=1;
+          }
+          catch(PDOException $e)
+          {
+            echo $e;
+          }
+        }
+        else{
+          $row = $query->fetch(PDO::FETCH_ASSOC);
+          $sedeId=$row["id"];
+        }
+      }
+      catch(PDOException $e)
+      {
+        echo $e;
+      }
+
+      try{
+      $query=$conn->prepare("UPDATE apprendista SET
+        app_nome=:nome,app_telefono=:telefono,app_dataNascita=:nascita,app_rappresentante=:rappresentante,
+        app_statuto=:statuto,app_indirizzo=:indirizzo,app_domicilio=:domicilio,app_osservazioni=:osservazioni,
+        app_professione=:professione,
+        app_dataInizio=:inizio,grui_id=:gruppo,sed_id=:sede,dat_id=:datore,for_email=:formatore
+        WHERE app_flag=1 && app_idContratto=:contratto && app_annoScolastico=:scolastico && app_annoFine=:fine;");
+
+      $query->bindParam(':contratto',$contratto);
+      $query->bindParam(':nome',$nome);
+      $query->bindParam(':telefono',$telefono);
+      $query->bindParam(':nascita',$nascita);
+      $query->bindParam(':rappresentante',$rappresentante);
+      $query->bindParam(':statuto',$statuto);
+      $query->bindParam(':indirizzo',$indirizzo);
+      $query->bindParam(':domicilio',$domicilio);
+      $query->bindParam(':professione',$professione);
+      $query->bindParam(':scolastico',$scolastico);
+      $query->bindParam(':fine',$fine);
+      $query->bindParam(':inizio',$inizio);
+      $query->bindParam(':gruppo',$gruppo);
+      $query->bindParam(':sede',$sedeId);
+      $query->bindParam(':datore',$datore);
+      $query->bindParam(':formatore',$formatore);
+      $query->bindParam(':osservazioni',$osservazioni);
+      $query->execute();
+      echo "<script> location.href='apprendisti.php'</script>";
   }
   catch(PDOException $e)
   {

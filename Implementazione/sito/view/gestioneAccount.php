@@ -44,11 +44,11 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) AND ($_SESSION["tipo"]==
       var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if(regex.test(email)){
         $("#formInsert").submit();
-        alert($("#idEmailInsert").val());
+        //alert($("#idEmailInsert").val());
         $("#idEmailInsert").empty();
       }
       else{
-        $("#messaggioInsert").append("la password non è valida");
+        $("#messaggioInsert").append("la email non è valida");
       }
     });
   });
