@@ -1,4 +1,5 @@
 <script>
+// funzione per il settaggio corretto del menu attivo nelle diverse pagine
   $(document).ready(function(){
     var url = window.location;
     $('ul.nav a[href="' + url + '"]').parent().addClass('active');
@@ -20,9 +21,8 @@ if(isset($_SESSION["email"])){?>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Apprendisti Info & Media</a>
+      <a class="navbar-brand" href="apprendisti.php">Apprendisti Info & Media</a>
     </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="apprendisti.php">Apprendisti</a></li>

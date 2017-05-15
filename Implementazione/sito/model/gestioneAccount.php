@@ -15,26 +15,30 @@ if(isset($_POST["emailCancellata"]) AND isset($_SESSION['email'])){
     echo $e;
   }
 }
-
+// se su vuole modificare un email
 if(isset($_POST["emailModificata"]) && isset($_SESSION['email'])){
   try{
     $email=$_POST["emailModificata"];
+    // se il checkbox è settato allora setto a l' account come amministratore
     if(isset($_POST["adminCheckbox"])){
       $query = $conn->prepare("UPDATE utente set ute_tipo=1 where ute_email=:email");
       $query->bindParam(':email',$email);
       $query->execute();
       echo "<script> location.href='gestioneAccount.php'</script>";
     }
+    // altrmenti come normale
     else{
       $query = $conn->prepare("UPDATE utente set ute_tipo=0 where ute_email=:email");
       $query->bindParam(':email',$email);
       $query->execute();
       echo "<script> location.href='gestioneAccount.php'</script>";
     }
+    // se le password sono entrambe settate e non vuote
     if(isset($_POST["password"]) && isset($_POST["repassword"]) && !empty($_POST["password"]) && !empty($_POST["repassword"]) && $_POST["password"]==$_POST["repassword"]){
       $query = $conn->prepare("UPDATE utente set ute_password=:password,ute_passwordTemp=1 where ute_email=:email");
       $query->bindParam(':email',$email);
       $query->bindParam(':password',md5($_POST["password"]));
+      // aggiorno e invio un email
       if($query->execute()!=false){
         $destinatario = $email;
         $oggetto = "cambio password da parte di un admin";
@@ -53,9 +57,11 @@ if(isset($_POST["emailModificata"]) && isset($_SESSION['email'])){
   }
 }
 
+// se cerco di inserire un account
 if(isset($_POST["emailInsert"]) AND !empty($_POST["emailInsert"]) AND isset($_SESSION['email'])){
   try{
     $email = $_POST['emailInsert'];
+    // seleziono e controllo se è già presente
     $query = $conn->prepare("SELECT ute_email,ute_flag from utente where ute_email=:email");
     $query->bindParam(':email',$email);
     $query->execute();
@@ -69,6 +75,7 @@ if(isset($_POST["emailInsert"]) AND !empty($_POST["emailInsert"]) AND isset($_SE
         $flag->bindParam(':password',$pass);
         $flag->execute();
       }else{ // se è presente ma non cancellato
+        
       }
     }
     else{ // crea nuovo account
@@ -93,6 +100,7 @@ if(isset($_POST["emailInsert"]) AND !empty($_POST["emailInsert"]) AND isset($_SE
 	}
 }
 
+// funzione per una password randomica
 function randomPassword() {
     $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     for ($i = 0; $i < 10; $i++) {

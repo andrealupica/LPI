@@ -1,9 +1,9 @@
-<!-- pagina per la gestione degli apprendisti-->
+<!-- pagina per la gestione dei formatori-->
 <?php
 if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
   try{
     $query = $conn->prepare("SELECT form.for_email AS 'email',form.for_nome AS 'nome', form.for_telefono AS 'telefono',dat.dat_nome AS 'datore' from formatore form
-      join datore dat ON form.dat_id=dat.dat_id where form.for_flag=1");
+      join datore dat ON form.dat_id=dat.dat_id where form.for_flag=1 order by form.for_nome");
     $query->execute();
   }
   catch(PDOException $e)
@@ -28,7 +28,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
   $(document).ready(function(){
     // funzione per la visibilità delle colonne quando i checkbox vengono cliccati
     $("label input").change(function(){
-      var valore=this.value;
+      var valore = this.value;
       var checkbox = $(this);
       // per ogni tr nella tabella
         $("#table").find("tr").each(function(index) {
@@ -71,7 +71,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
     });
 
-// quando il valore del select del datore cambia
+    // quando il valore del select del datore cambia
     $("#datoreSel").change(function(){
       valore=$("#datoreSel").val();
         $.ajax({
@@ -97,12 +97,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       $("#messaggioEmail").empty();
       // regex e creazioni variabili
       var regexTesto = /[a-z,A-Z]/;
-      var regexData = /(\d{2})\.(\d{2})\.(\d{4})+$/;
-      var regexContratto = /(\d{4})\.(\d{4})+$/;
-      var regexDomicilio = /([0-9]\s[a-z,A-Z])/;
       var regexAlfa = /([0-9,a-z,A-Z])/;
-      var regexAnno = /(\d{4})+$/;
-      var regexNumero = /(\d{1})+$/;
       var regexTelefono = /[+,0-9]$/;
       var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
@@ -118,6 +113,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
         $("#messaggioNome").append("formato errato: inserire solo lettere");
         n++;
       }
+      
       if(regexTelefono.test(telefono)){
         $("#messaggioTelefono").append("il formato va bene");
       }
@@ -125,6 +121,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
         $("#messaggioTelefono").append("inserire un numero di telefono valido");
         n++
       }
+
       if(regexEmail.test(email)){
         $("#messaggioEmail").append("il formato va bene");
       }
@@ -152,7 +149,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
   }
 
   </script>
-  <body class="body" style="min-width:680px;">
+  <body class="body">
     <?php include_once "menu.php";
     ?>
     <div class="container">
@@ -166,8 +163,8 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
             <input type="text" class="form-control" id="search"></input>
           </div>
         </div>
-        <?php             if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
-        <div class="col-sm-2 col-xs-6">
+        <?php if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
+        <div class="col-sm-4 col-xs-6" style="margin-top: 0px;">
           <button class="btn btn-primary col-xs-12" data-toggle="modal" data-target="#myModalI" onclick="modalInsert()">
             <span class="glyphicon glyphicon-pencil"></span> inserisci
           </button>
@@ -213,7 +210,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
                 <button type="submit" name='buttonD' id="<?php echo $row['email']?>" class="btn btn-primary btn-md">
                    <span class="glyphicon glyphicon-option-horizontal"></span>
                 </button>
-                <input type="hidden" name="modifica" value="<?php echo $row['email']?>" />
+                <input type="hidden" name="dettaglio" value="<?php echo $row['email']?>" />
               </form>
             </td>
             <?php if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
@@ -273,7 +270,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 id="titoloInserimento" class="modal-title">Creazione di un account </h4>
+                  <h4 id="titoloInserimento" class="modal-title">Creazione di un datore </h4>
                 </div>
                 <div class="modal-body">
                   <form id="formInsert" method="post">
@@ -361,6 +358,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
   <?php
 }
 else{
-  echo "non hai i permessi per visualizzare questa pagina";
+  echo "formatori.php";
 }
 ?>

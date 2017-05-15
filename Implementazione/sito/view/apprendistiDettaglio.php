@@ -1,8 +1,8 @@
-<!-- pagina per la gestione degli apprendisti-->
+<!-- pagina per la visione degli apprendisti-->
 <?php
-if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["dettaglio"])){ // da riguardare
+if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["dettaglio"])){
   $dettaglio = $_POST["dettaglio"];
-  //echo "post: ".$elimina;
+  // idContratto/annoScolastico/annoFine
   $m = explode("/",$dettaglio);
   $contratto = $m[0];
   $scolastico = $m[1];
@@ -51,6 +51,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["dettagl
     <div class="container">
       <h1 class="col-xs-12">Dettaglio Apprendista</h1>
       <br>
+      <form method="post" action="apprendistaPDF.php" target="_blank">
         <div id="nomeDiv" class="col-sm-4 col-xs-6">
           <label id="nomeLb">Nome e cognome:</label>
           <input type="text" name="insertNome" readonly="true" id="insertNome" value="<?php echo $row["nome"] ?>" class="form-control" placeholder="nome cognome" required="required"/>
@@ -146,6 +147,13 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["dettagl
           <textarea class="col-xs-12 form-control" readonly="true" name="osservazionif" style="margin-top:0px" ><?php echo $row["osservazioniFormatore"]?>
           </textarea>
         </div>
+        <div class="col-sm-3 col-xs-6" style="margin-top:0px">
+          <button type="submit" class="btn btn-primary col-xs-12">
+            PDF
+          </button>
+        </div>
+        <input type="hidden" name="pdf"/>
+      </form>
     </div>
   </body>
   </html>

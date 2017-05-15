@@ -1,6 +1,7 @@
-<!-- pagina per la gestione dei formatori-->
+<!-- pagina per la modifica dei formatori-->
 <?php
-if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && isset($_POST["modifica"])){
+if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin") && isset($_POST["modifica"])){
+  //email
   $mod = $_POST["modifica"];
   try{
     $query = $conn->prepare("SELECT form.for_email AS 'email',form.for_nome AS 'nome', form.for_telefono AS 'telefono',dat.dat_nome AS 'datore',dat.dat_id AS 'dat_id',form.for_osservazioni AS 'osservazioni' from formatore form
@@ -29,12 +30,14 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && isset($_POST["modifi
   <script>
   $(document).ready(function(){
 
+    // quando clicco su salva
     $("#bSalva").click(function(){
       var n = 0;
       // svuota campi messaggio
       $("#messaggioNome").empty();
       $("#messaggioTelefono").empty();
       $("#messaggioEmail").empty();
+
       // regex e creazioni variabili
       var regexTesto = /[a-z,A-Z]/;
       var regexData = /(\d{2})\.(\d{2})\.(\d{4})+$/;
@@ -76,18 +79,17 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && isset($_POST["modifi
       if($("#datoreSel").val()<=0){
         n++;
       }
-      //alert(n);
+      // se non ci sono errori di formattazione submitta
       if(n==0){
         $("#formInsert").submit();
       }
       else{
       }
     });
-
   });
 
   </script>
-  <body class="body" style="min-width:680px;">
+  <body class="body">
     <?php include_once "menu.php";
       $row = $query->fetch(PDO::FETCH_ASSOC);
     ?>
@@ -116,7 +118,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && isset($_POST["modifi
           <div class="col-xs-6" >
             <label id="datoreLb" >Datore:</label>
               <select name="datoreSel" id="datoreSel" class="form-control">
-              <option value="0">-- seleziona --</option>
               <?php
               try{
                 $gruppo = $conn->prepare("SELECT dat_nome 'nome', dat_id AS 'id' from datore where dat_flag=1");

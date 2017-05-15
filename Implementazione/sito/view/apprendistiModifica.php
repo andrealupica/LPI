@@ -1,8 +1,8 @@
-<!-- pagina per la gestione degli apprendisti-->
+<!-- pagina per la modifica degli apprendisti-->
 <?php
-if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["modifica"])){ // da riguardare
+if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin") && isset($_POST["modifica"])){ // da riguardare
   $modifica = $_POST["modifica"];
-  //echo "post: ".$elimina;
+  // idContratto/annoScolastico/annoFine
   $m = explode("/",$modifica);
   $contratto = $m[0];
   $scolastico = $m[1];
@@ -11,7 +11,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["modific
     $query = $conn->prepare("SELECT app.app_idContratto AS 'contratto', app.app_nome AS 'nome', app.app_telefono AS 'telefono', app.app_dataNascita AS 'nascita',
       app.app_rappresentante AS 'rappresentante', app.app_statuto AS 'statuto', app.app_indirizzo AS 'indirizzo', app.app_domicilio AS 'domicilio',app.app_osservazioni AS 'osservazioni',
       app.app_professione AS 'professione',  app.app_annoScolastico AS 'annoScolastico', app.app_annoFine AS 'annoFine', app.app_dataInizio AS 'dataInizio',
-      grui_id AS 'gruppo', sed.sed_nome AS 'sede', dat.dat_nome AS 'datore', app.for_email AS 'formatore' FROM apprendista app
+      grui_id AS 'gruppo', sed.sed_nome AS 'sede', dat.dat_nome AS 'datore',dat.dat_id AS 'idDatore', app.for_email AS 'formatore' FROM apprendista app
       JOIN datore dat ON dat.dat_id = app.dat_id
       JOIN sede sed ON sed.sed_id = app.sed_id
       WHERE app.app_flag=1 && app.app_idContratto=:contratto && app.app_annoScolastico=:scolastico && app.app_annoFine=:fine;");
@@ -50,7 +50,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["modific
           data:{datoreSel:valore},
           success: function(result){
             result=JSON.parse(result);
-            alert(result);
+            //alert(result);
             $("#formatoreSel").find("option").remove();
             for (var i = 0; i < result.length; i++) {
               risultato = result[i].split("/");
@@ -225,8 +225,9 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["modific
         $("#messaggioAnno").append("la scelta non va bene");
         n++;
       }
+      // se non ci sono errori submitta
       if(n==0){
-        alert("manda");
+        //alert("manda");
         $("#formModifica").submit();
       }
     });
@@ -314,7 +315,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["modific
         <div class="col-sm-4 col-xs-6" >
           <label id="datoreLb" >Datore:</label>
             <select name="datoreSel" id="datoreSel" class="form-control">
-            <option value="0">-- seleziona --</option>
             <?php
             try{
               $gruppo = $conn->prepare("SELECT dat_nome 'nome', dat_id AS 'id' from datore where dat_flag=1");
@@ -325,7 +325,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["modific
               echo $e;
             }
               while($r = $gruppo->fetch(PDO::FETCH_ASSOC)){
-                if($row["dat_id"]==$r["id"]){
+                if($row["idDatore"]==$r["id"]){
             ?>
               <option selected="true" value="<?php echo $r["id"] ?>"><?php echo $r["nome"] ?></option>
               <?php
@@ -345,10 +345,10 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["modific
         <div class="col-sm-4 col-xs-6">
           <label id="formatoreLb">Formatore:</label>
           <select name="formatoreSel" id="formatoreSel" class="form-control">
-            <option value="0">-- seleziona --</option>
             <?php
             try{
-              $formatore = $conn->prepare("SELECT for_nome AS 'nome',for_email AS 'email' from formatore where for_flag=1");
+              $formatore = $conn->prepare("SELECT for_nome AS 'nome',for_email AS 'email' from formatore where for_flag=1 AND dat_id=:id");
+              $formatore->bindParam(":id",$row['idDatore']);
               $formatore->execute();
             }
             catch(PDOException $e)
@@ -373,7 +373,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["modific
         <div class="col-sm-4 col-xs-6">
           <label id="inserimentoLb">Anno inserimento:</label>
           <select  id="gruppoSel" name="gruppoSel" class="form-control">
-            <option value="0">-- seleziona --</option>
             <?php
             try{
               $gruppo = $conn->prepare("SELECT grui_id AS 'id', grui_nome AS 'nome' from gruppoInserimento");
@@ -393,7 +392,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["modific
               <option value="<?php echo $r["id"] ?>"><?php echo $r["nome"] ?></option>
             <?php
               }
-              }
+            }
             ?>
           </select>
           <div class="col-xs-12 messaggio" id="messaggioAnno"></div>

@@ -1,17 +1,21 @@
 <?php
   if(isset($_GET["email"])){
-    include_once "connection.php";
     $email = $_GET["email"];
     try{
+      // seleziono l'utente
       $query = $conn->prepare("SELECT ute_email from utente where ute_email=:email && ute_flag=1");
       $query->bindParam(':email',$email);
       $query->execute();
+      // se ne ritorna 1 come è giusto che sia
       if($query->rowCount()==1){
+        // creo una password randomica
         $password = randomPassword();
+        // la cifro in md5
         $passdb = md5($password);
         $pass = $conn->prepare("UPDATE utente set ute_password=:password,ute_passwordTemp='1' where ute_email=:email && ute_flag='1'");
         $pass->bindParam(':password',$passdb);
         $pass->bindParam(':email',$email);
+        // se non da errori invio un email
         if($pass->execute()!=false){
           $destinatario = $email;
           $oggetto = "richiesta cambio password confermata";
@@ -30,6 +34,7 @@
       echo $e;
     }
   }
+
   // funzione per una password randomica
 function randomPassword() {
     $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

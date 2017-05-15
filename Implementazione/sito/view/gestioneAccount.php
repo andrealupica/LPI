@@ -1,6 +1,6 @@
 <!-- pagina per la gestione degli accessi di tutti -->
 <?php
-if(($_SESSION['email']!="" OR $_SESSION['email']!=null) AND ($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master")){ // da riguardare
+if(($_SESSION['email']!="" OR $_SESSION['email']!=null) AND ($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master")){
   try{
     $query = $conn->prepare("SELECT ute_email AS 'email',ute_tipo AS 'tipo' from utente where ute_flag=1");
     $query->execute();
@@ -24,7 +24,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) AND ($_SESSION["tipo"]==
   <script>
   $(document).ready(function(){
     $("#bSaveModify").click(function(){
-      //alert($("#password").val()+":"+$("#repassword").val());
       if($("#password").val()!=$("#repassword").val()){
         //alert("password diverse ");
         $("#messaggioModify").append("attenzione le password sono diverse");
@@ -44,7 +43,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) AND ($_SESSION["tipo"]==
       var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if(regex.test(email)){
         $("#formInsert").submit();
-        //alert($("#idEmailInsert").val());
         $("#idEmailInsert").empty();
       }
       else{
@@ -90,7 +88,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) AND ($_SESSION["tipo"]==
         </div>
         <div class="col-sm-3 col-xs-12">
           <button class="btn btn-primary col-xs-12" data-toggle="modal" data-target="#myModalI" onclick="modalInsert()">
-            <span class="glyphicon glyphicon-log-in"></span> registra utente
+            <span class="glyphicon glyphicon-pencil"></span> registra utente
           </button>
         </div>
       </div>

@@ -1,13 +1,14 @@
-<!-- pagina per la gestione dei formatori-->
+<!-- pagina per il dettaglio dei formatori-->
 <?php
-if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && isset($_POST["modifica"])){
-  $mod = $_POST["modifica"];
+if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && isset($_POST["dettaglio"])){
+  //email
+  $det = $_POST["dettaglio"];
   try{
     $query = $conn->prepare("SELECT form.for_email AS 'email',form.for_nome AS 'nome', form.for_telefono AS 'telefono',
       dat.dat_nome AS 'datore',dat.dat_id AS 'dat_id',form.for_osservazioni AS 'osservazioni',
       dat.dat_emailHR AS 'emailHR',dat.dat_nomeHR AS 'nomeHR',dat.dat_telefonoHR AS 'telefonoHR' from formatore form
       join datore dat ON form.dat_id=dat.dat_id where form.for_flag=1 and dat.dat_flag=1 and form.for_email =:email");
-    $query->bindParam(':email',$mod);
+    $query->bindParam(':email',$det);
     $query->execute();
   }
   catch(PDOException $e)
@@ -28,54 +29,62 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && isset($_POST["modifi
   </head>
   <style>
   </style>
-  <body class="body" style="min-width:680px;">
+  <body class="body" >
     <?php include_once "menu.php";
       $row = $query->fetch(PDO::FETCH_ASSOC);
     ?>
     <div class="container">
-      <h1 class="col-xs-12">Formatori Modifica</h1>
+      <h1 class="col-xs-12">Formatori Dettagli</h1>
       <br>
-      <div id="datoreDiv" class="col-md-4 col-xs-6">
-        <label id="nomeLb">Datore:</label>
-        <input type="text" name="insertDatore" id="insertDatore" readonly="true"class="form-control" value="<?php echo $row["datore"]?> "placeholder="" required="required"/>
-        <div class="col-xs-12 messaggio" id="messaggioDatore"></div>
-      </div>
-      <div id="HRDiv" class="col-md-4 col-xs-6">
-        <label id="nomeLb">Cognome nome HR:</label>
-        <input type="text" name="insertHR" id="insertHR" readonly="true"class="form-control" value="<?php echo $row["nomeHR"]?> "placeholder="" required="required"/>
-        <div class="col-xs-12 messaggio" id="messaggioHR"></div>
-      </div>
-      <div id="emailHRDiv" class="col-md-4 col-xs-6">
-        <label id="nomeLb">Email HR:</label>
-        <input type="text" name="insertEmailHR" id="insertEmailHR" readonly="true"class="form-control" value="<?php echo $row["emailHR"]?> "placeholder="" required="required"/>
-        <div class="col-xs-12 messaggio" id="messaggioEmailHR"></div>
-      </div>
-      <div id="telefonoHRDiv" class="col-md-4 col-xs-6">
-        <label id="nomeLb">Telefono HR:</label>
-        <input type="text" name="insertTelefonoHR" id="insertTelefonoHR" readonly="true"class="form-control" value="<?php echo $row["telefonoHR"]?> "placeholder="" required="required"/>
-        <div class="col-xs-12 messaggio" id="messaggioTelefonoHR"></div>
-      </div>
-      <div id="nomeDiv" class="col-md-4 col-xs-6">
-        <label id="nomeLb">Nome e cognome:</label>
-        <input type="text" name="insertNome" id="insertNome" readonly="true"class="form-control" value="<?php echo $row["nome"]?> "placeholder="nome cognome" required="required"/>
-        <div class="col-xs-12 messaggio" id="messaggioNome"></div>
-      </div>
-      <div id="emailDiv" class="col-md-4 col-xs-6">
-        <label id="emailLb">Email:</label>
-        <input type="email" name="insertEmail" id="insertEmail" readonly="true" class="form-control" value="<?php echo $row["email"] ?>" placeholder="email del formatore" required="required"/>
-        <div class="col-xs-12 messaggio" id="messaggioEmail"></div>
-      </div>
-      <div id="telefonoDiv" class="col-md-4 col-xs-6">
-        <label id="telefonoLb">Telefono:</label>
-        <input type="text" name="insertTelefono" id="insertTelefono" readonly="true" class="form-control" value="<?php echo $row["telefono"] ?>" placeholder="es: 012 345 67 89" required="required"/>
-        <div class="col-xs-12 messaggio" id="messaggioTelefono"></div>
-      </div>
-      <div class="col-xs-12">
-        <label id="osservazioniLb">Osservazioni:</label>
-        <textarea class="form-control" readonly="true"name="osservazioni" style="margin-top:0px" ><?php echo $row["osservazioni"]?>
-        </textarea>
-        <div class="col-xs-12 messaggio" id=""></div>
-      </div>
+      <form method="post" action="formatorePDF.php" target="_blank">
+        <div id="datoreDiv" class="col-md-4 col-xs-6">
+          <label id="nomeLb">Datore:</label>
+          <input type="text" name="insertDatore" id="insertDatore" readonly="true"class="form-control" value="<?php echo $row["datore"]?> "placeholder="" required="required"/>
+          <div class="col-xs-12 messaggio" id="messaggioDatore"></div>
+        </div>
+        <div id="HRDiv" class="col-md-4 col-xs-6">
+          <label id="nomeLb">Nome e Cognome HR:</label>
+          <input type="text" name="insertHR" id="insertHR" readonly="true"class="form-control" value="<?php echo $row["nomeHR"]?> "placeholder="" required="required"/>
+          <div class="col-xs-12 messaggio" id="messaggioHR"></div>
+        </div>
+        <div id="emailHRDiv" class="col-md-4 col-xs-6">
+          <label id="nomeLb">Email HR:</label>
+          <input type="text" name="insertEmailHR" id="insertEmailHR" readonly="true"class="form-control" value="<?php echo $row["emailHR"]?> "placeholder="" required="required"/>
+          <div class="col-xs-12 messaggio" id="messaggioEmailHR"></div>
+        </div>
+        <div id="telefonoHRDiv" class="col-md-4 col-xs-6">
+          <label id="nomeLb">Telefono HR:</label>
+          <input type="text" name="insertTelefonoHR" id="insertTelefonoHR" readonly="true"class="form-control" value="<?php echo $row["telefonoHR"]?> "placeholder="" required="required"/>
+          <div class="col-xs-12 messaggio" id="messaggioTelefonoHR"></div>
+        </div>
+        <div id="nomeDiv" class="col-md-4 col-xs-6">
+          <label id="nomeLb">Nome e cognome:</label>
+          <input type="text" name="insertNome" id="insertNome" readonly="true"class="form-control" value="<?php echo $row["nome"]?> "placeholder="nome cognome" required="required"/>
+          <div class="col-xs-12 messaggio" id="messaggioNome"></div>
+        </div>
+        <div id="emailDiv" class="col-md-4 col-xs-6">
+          <label id="emailLb">Email:</label>
+          <input type="email" name="insertEmail" id="insertEmail" readonly="true" class="form-control" value="<?php echo $row["email"] ?>" placeholder="email del formatore" required="required"/>
+          <div class="col-xs-12 messaggio" id="messaggioEmail"></div>
+        </div>
+        <div id="telefonoDiv" class="col-md-4 col-xs-6">
+          <label id="telefonoLb">Telefono:</label>
+          <input type="text" name="insertTelefono" id="insertTelefono" readonly="true" class="form-control" value="<?php echo $row["telefono"] ?>" placeholder="es: 012 345 67 89" required="required"/>
+          <div class="col-xs-12 messaggio" id="messaggioTelefono"></div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <label id="osservazioniLb">Osservazioni:</label>
+          <textarea class="form-control" readonly="true"name="osservazioni" style="margin-top:0px" ><?php echo $row["osservazioni"]?>
+          </textarea>
+          <div class="col-xs-12 messaggio" id=""></div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <button type="submit" class="btn btn-primary col-xs-12">
+            PDF
+          </button>
+        </div>
+        <input type="hidden" name="pdf"></input>
+      <form>
     </div>
   </body>
   </html>

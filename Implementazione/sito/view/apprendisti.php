@@ -1,6 +1,6 @@
 <!-- pagina per la gestione degli apprendisti-->
 <?php
-if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
+if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
   try{
     $query = $conn->prepare("SELECT app.app_idContratto AS 'contratto', app.app_nome AS 'nome', app.app_telefono AS 'telefono', app.app_dataNascita AS 'nascita',
       app.app_rappresentante AS 'rappresentante', app.app_statuto AS 'statuto', app.app_indirizzo AS 'indirizzo', app.app_domicilio AS 'domicilio',
@@ -9,7 +9,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       JOIN datore dat ON dat.dat_id = app.dat_id
       JOIN formatore form ON form.for_email = app.for_email
       JOIN sede sed ON sed.sed_id = app.sed_id
-      WHERE app.app_flag=1;");
+      WHERE app.app_flag=1 order by app.app_nome;");
     $query->execute();
   }
   catch(PDOException $e)
@@ -29,7 +29,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
     <link href="css/stylebase.css" rel="stylesheet">
   </head>
   <style>
-  .col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-10,.col-xs-11,.col-xs-12,
+    .col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-10,.col-xs-11,.col-xs-12,
   .col-sm-1,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-10,.col-sm-11,.col-sm-12,
   .col-md-1,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-10,.col-md-11,.col-md-12,
   .col-lg-1,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-10,.col-lg-11,.col-lg-12,
@@ -44,7 +44,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
   $(document).ready(function(){
     // funzione per la visibilità delle colonne quando i checkbox vengono cliccati
     $("label input").change(function(){
-      var valore=this.value;
+      var valore = this.value;
       var checkbox = $(this);
       // per ogni tr nella tabella
         $("#table").find("tr").each(function(index) {
@@ -87,20 +87,22 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
     });
 
-// quando il valore del select del datore cambia
+    // quando il valore del select del datore cambia
     $("#datoreSel").change(function(){
       valore=$("#datoreSel").val();
         $.ajax({
           type:"POST",
           url: "model/apprendisti2.php",
           data:{datoreSel:valore},
+          // ritorna i formatori
           success: function(result){
             result=JSON.parse(result);
-            //alert(result);
+            // togli il "-- seleziona --"
             $("#formatoreSel").find("option").remove();
+            // e inserisci i nuovi option
             for (var i = 0; i < result.length; i++) {
               risultato = result[i].split("/");
-              $("#formatoreSel").append("<option value='"+risultato[1]+"'>"+risultato[0]+"</option>")
+              $("#formatoreSel").append("<option value='"+risultato[1]+"'>"+risultato[0]+"</option>");
             }
         }});
     });
@@ -146,7 +148,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       $("#messaggioFine").empty();
       $("#messaggioScolastico").empty();
 
-
+      // controllo dei campi
       if(regexTesto.test(nome)){
         $("#messaggioNome").append("il formato va bene");
       }
@@ -255,6 +257,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       else{
         n++;
       }
+      // se non ci sono errori submitta
       if(n==0){
         $("#formInsert").submit();
       }
@@ -263,6 +266,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
     });
 
   });
+  // quando viene cliccato il bottone di inserimento parte la funzione
   function modalInsert(){
     // svuota campi messaggio
     $("#messaggioNome").empty();
@@ -287,74 +291,84 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
     <div class="container">
       <h1 class="col-xs-12">Apprendisti</h1>
       <br>
-      <div class="col-xs-12">
-        <label class="col-sm-3 col-xs-4 control-label">Ricerca: </label>
-        <div class="col-sm-5 col-xs-8">
-          <div class="input-group">
-            <span class="input-group-addon glyphicon glyphicon-search"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" id="search"></input>
+      <form method="post" action="apprendistiPDF.php" target="_blank">
+        <div class="col-xs-12">
+          <label class="col-sm-2 col-xs-4 control-label">Ricerca: </label>
+          <div class="col-sm-6 col-xs-8">
+            <div class="input-group">
+              <span class="input-group-addon glyphicon glyphicon-search"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+              <input type="text" name="ricerca" class="form-control" id="search"></input>
+            </div>
+          </div>
+          <?php  if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
+          <div class="col-sm-4 col-xs-6" style="margin-top: 0px;">
+            <button class="btn btn-primary col-xs-12" type="button" return="false" data-toggle="modal" data-target="#myModalI" onclick="modalInsert()">
+              <span class="glyphicon glyphic on-pencil"></span> inserisci
+            </button>
+          </div>
+          <?php } ?>
+        </div>
+        <div style="margin-top:10px">
+          <div class="col-xs-4">
+            <button type="button" class="btn btn-default btn-md" return="false" id="bCheckbox">Nascondi Checkbox</button>
+          </div>
+          <div class="col-xs-4">
+            <span>
+              <select name="gruppo" id="selectgruppo" class="form-control" style="margin-bottom:10px">
+                  <option value="0">mostra tutti</option>
+                <?php
+                try{
+                  $gruppo = $conn->prepare("SELECT grui_id AS 'id', grui_nome AS 'nome' from gruppoInserimento");
+                  $gruppo->execute();
+                }
+                catch(PDOException $e)
+                {
+                  echo $e;
+                }
+                  while($row = $gruppo->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                  <option value="<?php echo $row["id"] ?>"><?php echo $row["nome"] ?></option>
+                <?php
+                  }
+                ?>
+
+              </select>
+            </span>
+          </div>
+          <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary col-xs-12">
+              PDF
+            </button>
           </div>
         </div>
-        <?php             if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
-        <div class="col-sm-2 col-xs-6">
-          <button class="btn btn-primary col-xs-12" data-toggle="modal" data-target="#myModalI" onclick="modalInsert()">
-            <span class="glyphicon glyphicon-pencil"></span> inserisci
-          </button>
+        <div class="col-xs-12" id="checkbox">
+          <label class="col-xs-4">n Contratto: <input type="checkbox" name="contratto" value="contratto" checked="true" id="checkcontratto"></label>
+          <label class="col-xs-4">nome apprendista: <input type="checkbox" name="nome" value="nome" checked="true" id="checknome"></label>
+          <label class="col-xs-4">data di nascita: <input type="checkbox" name="dataNascita" value="dataNascita" id="checkdataNascita"></label>
+          <label class="col-xs-4">telefono: <input type="checkbox" name="telefono" value="telefono" id="checktelefono"></label>
+          <label class="col-xs-4">indirizzo: <input type="checkbox" name="indirizzo" value="indirizzo"  id="checkindirizzo"></label>
+          <label class="col-xs-4">domicilio: <input type="checkbox" name="domicilio" value="domicilio"  id="checkdomicilio"></label>
+          <label class="col-xs-4">statuto: <input  type="checkbox" name="statuto" value="statuto" id="checkstatuto"></label>
+          <label class="col-xs-4">rappresentante: <input  type="checkbox" name="rappresentante" value="rappresentante" id="checkrappresentante"></label>
+          <label class="col-xs-4">professione: <input  type="checkbox" name="professione" value="professione"  id="checkprofessione"></label>
+          <label class="col-xs-4">sede: <input type="checkbox" name="sede" value="sede"  id="checksede"></label>
+          <label class="col-xs-4">data di inizio: <input  type="checkbox" name="dataInizio" value="dataInizio" id="checkdataInizio"></label>
+          <label class="col-xs-4">data di fine: <input  type="checkbox" name="dataFine" value="dataFine"  id="dataFine"></label>
+          <label class="col-xs-4">anno scolastico: <input  type="checkbox" name="annoScolastico" value="annoScolastico"  id="checkannoScolastico"></label>
+          <label class="col-xs-4">datore: <input  type="checkbox" name="datore" value="datore" checked="true" id="checkdatore"></label>
+          <label class="col-xs-4">formatore: <input  type="checkbox" name="formatore" value="formatore" checked="true" id="formatore"></label>
         </div>
-        <div class="col-sm-2 col-xs-6">
-          <form role="form" action="" method="post" name="form1" enctype="multipart/form-data">
-             <fieldset>
-                 <input name="idCSV" type="file" id="idCSV" accept=".csv" />
-                 <input type="submit" name="Import" value="Importa " class="btn btn-primary" />
-             </fieldset>
-          </form>
-        </div>
-        <?php } ?>
+        <input type="hidden" name="pdf"></input>
+      </form>
+      <div class="col-xs-12" id="errori">
       </div>
-      <div class="col-xs-12">
-        <button class="btn btn-default btn-md" id="bCheckbox">visualizza Checkbox</button>
-      </div>
-      <div class="col-xs-12" id="checkbox">
-        <label class="col-xs-4">n Contratto: <input type="checkbox" name="contratto" value="contratto" checked="true" id="checkcontratto"></label>
-        <label class="col-xs-4">nome apprendista: <input type="checkbox" name="nome" value="nome" checked="true" id="checknome"></label>
-        <label class="col-xs-4">data di nascita: <input type="checkbox" name="dataNascita" value="dataNascita" id="checkdataNascita"></label>
-        <label class="col-xs-4">telefono: <input type="checkbox" name="telefono" value="telefono" id="checktelefono"></label>
-        <label class="col-xs-4">indirizzo: <input type="checkbox" name="indirizzo" value="indirizzo"  id="checkindirizzo"></label>
-        <label class="col-xs-4">domicilio: <input type="checkbox" name="domicilio" value="domicilio"  id="checkdomicilio"></label>
-        <label class="col-xs-4">statuto: <input  type="checkbox" name="statuto" value="statuto" id="checkstatuto"></label>
-        <label class="col-xs-4">rappresentante: <input  type="checkbox" name="rappresentante" value="rappresentante" id="checkrappresentante"></label>
-        <label class="col-xs-4">professione: <input  type="checkbox" name="professione" value="professione"  id="checkprofessione"></label>
-        <label class="col-xs-4">sede: <input type="checkbox" name="sede" value="sede"  id="checksede"></label>
-        <label class="col-xs-4">data di inizio: <input  type="checkbox" name="dataInizio" value="dataInizio" id="checkdataInizio"></label>
-        <label class="col-xs-4">data di fine: <input  type="checkbox" name="dataFine" value="dataFine"  id="dataFine"></label>
-        <label class="col-xs-4">anno scolastico: <input  type="checkbox" name="annoScolastico" value="annoScolastico"  id="checkannoScolastico"></label>
-        <label class="col-xs-4">datore: <input  type="checkbox" name="datore" value="datore" checked="true" id="checkdatore"></label>
-        <label class="col-xs-4">formatore: <input  type="checkbox" name="formatore" value="formatore" checked="true" id="formatore"></label>
-      </div>
-      <div class="col-xs-4">
-        <span>
-          <select name="gruppo" id="selectgruppo" class="form-control" style="margin-bottom:10px">
-              <option value="0">mostra tutti</option>
-            <?php
-            try{
-              $gruppo = $conn->prepare("SELECT grui_id AS 'id', grui_nome AS 'nome' from gruppoInserimento");
-              $gruppo->execute();
-            }
-            catch(PDOException $e)
-            {
-              echo $e;
-            }
-              while($row = $gruppo->fetch(PDO::FETCH_ASSOC)){
-            ?>
-              <option value="<?php echo $row["id"] ?>"><?php echo $row["nome"] ?></option>
-            <?php
-              }
-            ?>
-
-          </select>
-        </span>
-      </div>
-      <div class="col-xs-6" id="errori">
+      <div class="col-xs-12" style="margin-bottom:10px">
+        <form role="form" action="" method="post" name="form1" enctype="multipart/form-data">
+           <fieldset>
+               <input name="idCSV" type="file" id="idCSV" accept=".csv" />
+               <input type="submit" name="Import" value="Importa " class="btn btn-primary" />
+           </fieldset>
+        </form>
       </div>
       <table data-role="table" data-mode="columntoggle" class="ui-responsive table table-striped table-bordered" id="table" >
         <thead>
@@ -471,7 +485,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 id="titoloInserimento" class="modal-title">Creazione di un account </h4>
+                  <h4 id="titoloInserimento" class="modal-title">Creazione di un apprendista </h4>
                 </div>
                 <div class="modal-body">
                   <form id="formInsert" method="post">
@@ -622,6 +636,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       var value = this.value.toLowerCase();
       var words = value.split(' ');
       $("#table").find("tr").each(function(index) {
+        // salta il primo tr (th)
         if (index === 0) return;
         var ris = $(this).find("td").text().toLowerCase();
         var flag=0;
@@ -648,6 +663,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
   <?php
 }
 else{
-  echo "non hai i permessi per visualizzare questa pagina";
+  echo "<script>location.href='apprendisti.php'</script>";
 }
 ?>
