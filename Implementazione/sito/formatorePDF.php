@@ -25,7 +25,7 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   $html .= '<td colspan="2">'.$_POST["osservazioni"].'</td>';
   $html .= '</tr></table>';
 
- echo $html;
+//  echo $html;
   $pdf = new TCPDF("P", PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
     // set document information
@@ -63,6 +63,6 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   $pdf->Output('formatore.pdf', 'I');
   }
 else{
-  echo "<script>location.href='fomratore.php'</script>";
+  echo "<script>location.href='formatori.php'</script>";
 }
 ?>

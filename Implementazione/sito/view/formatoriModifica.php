@@ -61,7 +61,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
         $("#messaggioNome").append("formato errato: inserire solo lettere");
         n++;
       }
-      if(regexTelefono.test(telefono)){
+      if(regexTelefono.test(telefono) OR telefono==""){
         $("#messaggioTelefono").append("il formato va bene");
       }
       else{

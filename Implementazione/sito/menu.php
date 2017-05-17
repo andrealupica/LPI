@@ -27,7 +27,7 @@ if(isset($_SESSION["email"])){?>
       <ul class="nav navbar-nav">
         <li><a href="apprendisti.php">Apprendisti</a></li>
         <li><a href="formatori.php">Formatori</a></li>
-        <li><a href="#">Datori di lavoro</a></li>
+        <li><a href="datori.php">Datori di lavoro</a></li>
         <?php
           if(($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master")){
         ?>
@@ -35,7 +35,7 @@ if(isset($_SESSION["email"])){?>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestione <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="gestioneAccount.php">Account</a></li>
-            <li><a href="#">Email</a></li>
+            <li><a href="gestioneEmail">Email</a></li>
             <?php
              if($_SESSION["tipo"]=="master"){ ?>
             <li><a href="#">Dati</a></li>

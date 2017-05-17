@@ -210,7 +210,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
           <label class="col-xs-3">indirizzo: <input type="checkbox" name="indirizzo" value="indirizzo"  id="checkIndirizzo"></label>
           <label class="col-xs-3">domicilio: <input type="checkbox" name="domicilio" value="domicilio"  id="checkDomicilio"></label>
           <label class="col-xs-3">telefono: <input type="checkbox" name="telefono" value="telefono" checked="true" id="checktelefono"></label>
-          <label class="col-xs-3">nome HR: <input type="checkbox" name="nomeHR" value="nomeHR" checked="true" id="checkNomeHR"></label>
+          <label class="col-xs-3">nome HR: <input type="checkbox" name="nomeHR" value="nomeHR"  id="checkNomeHR"></label>
           <label class="col-xs-3">email HR: <input type="checkbox" name="emailHR" value="emailHR"  id="checkEmailHR"></label>
           <label class="col-xs-3">telefono HR: <input type="checkbox" name="telefonoHR" value="telefonoHR"  id="checkTelefonoHR"></label>
         </div>
@@ -224,7 +224,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
             <th class="tbindirizzo" style="display: none;">Indirizzo</th>
             <th class="tbdomicilio" style="display: none;">Domicilio</th>
             <th class="tbtelefono">Telefono</th>
-            <th class="tbnomeHR">nome HR</th>
+            <th class="tbnomeHR" style="display: none;">nome HR</th>
             <th class="tbemailHR" style="display: none;">email HR</th>
             <th class="tbtelefonoHR"  style="display: none;">Telefono HR</th>
             <?php

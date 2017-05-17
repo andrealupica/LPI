@@ -66,28 +66,26 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
     <thead>
       <tr>';
   if(isset($_POST["nome"])){
-    $html .= '<th>Datore:</th>';
+    $html .= '<th><b>Datore:</b></th>';
   }
   if(isset($_POST["indirizzo"])){
-    $html .= '<th>Indirizzo:</th>';
+    $html .= '<th><b>Indirizzo:</b></th>';
   }
   if(isset($_POST["domicilio"])){
-    $html .= '<th>Domicilio:</th>';
+    $html .= '<th><b>Domicilio:</b></th>';
   }
   if(isset($_POST["telefono"])){
-    $html .= '<th>Telefono:</th>';
+    $html .= '<th><b>Telefono:</b></th>';
   }
   if(isset($_POST["nomeHR"])){
-    $html .= '<th>Nome HR:</th>';
+    $html .= '<th><b>Nome HR:</b></th>';
   }
   if(isset($_POST["emailHR"])){
-    $html .= '<th>Email HR:</th>';
+    $html .= '<th><b>Email HR:</b></th>';
   }
   if(isset($_POST["telefonoHR"])){
-    $html .= '<th>Telefono HR:</th>';
+    $html .= '<th><b>Telefono HR:</b></th>';
   }
-
-
   $html.="</tr>";
   while($row = $query->fetch(PDO::FETCH_ASSOC)){
     $html.="<tr>";
@@ -127,9 +125,9 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   $pdf = new TCPDF("L", PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
     // set document information
-  $pdf->SetTitle('informazioni apprendisti');
+  $pdf->SetTitle('informazioni datori');
 
-  $pdf->setHeaderData("",0,"informazioni apprendisti","");
+  $pdf->setHeaderData("",0,"informazioni datori","");
   // set header and footer fonts
   $pdf->setHeaderFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
   $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
@@ -158,7 +156,7 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   $pdf->AddPage();
   // output the HTML content
   $pdf->writeHTML($html, true, false, true, false, '');
-  $pdf->Output('apprendisti.pdf', 'I');
+  $pdf->Output('datori.pdf', 'I');
   }
 else{
   echo "<script>location.href='apprendisti.php'</script>";

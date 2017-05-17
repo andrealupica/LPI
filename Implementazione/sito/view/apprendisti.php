@@ -335,7 +335,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
               </select>
             </span>
           </div>
-          <div class="col-xs-4">
+          <div class="col-xs-4" style="margin-top:0px">
             <button type="submit" class="btn btn-primary col-xs-12">
               PDF
             </button>
@@ -362,6 +362,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       </form>
       <div class="col-xs-12" id="errori">
       </div>
+      <?php if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
       <div class="col-xs-12" style="margin-bottom:10px">
         <form role="form" action="" method="post" name="form1" enctype="multipart/form-data">
            <fieldset>
@@ -370,6 +371,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
            </fieldset>
         </form>
       </div>
+      <?} ?>
       <table data-role="table" data-mode="columntoggle" class="ui-responsive table table-striped table-bordered" id="table" >
         <thead>
           <tr id="th">
@@ -447,7 +449,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
           </tr>
           <?php } ?>
         </tbody>
-        </table>
+      </table>
 
         <!-- modal -->
         <div class="container">

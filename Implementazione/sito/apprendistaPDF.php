@@ -4,7 +4,7 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   include_once "connection.php";
   require_once('tcpdf/tcpdf.php'); // libreria per la creazione del pdf
 
-  $html = '<table border="1" cellpadding="5"><tdead><tr>';
+  $html = '<table border="1" cellpadding="5"><tr>';
   $html .= '<td><b>Contratto:</b></td>';
   $html .= '<td><b>Apprendista:</b></td>';
   $html .= '<td><b>Telefono:</b></td>';
@@ -27,6 +27,26 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   $html .= '</tr>';
   $html .= '<tr><td><b>osservazioni:</b></td>';
   $html .= '<td colspan="3">'.$_POST["osservazioni"].'</td>';
+  $html .= '</tr>';
+  $html .= '</table><br><table border="1" cellpadding="5">';
+  $html .= '<tr><td><b>Datore:</b></td>';
+  $html .= '<td><b>Indirizzo datore:</b></td>';
+  $html .= '<td><b>Domicilio datore:</b></td>';
+  $html .= '</tr>';
+  $html .= '<tr><td>'.$_POST["insertDatore"].'</td>';
+  $html .= '<td>'.$_POST["insertDatoreIndirizzo"].'</td>';
+  $html .= '<td>'.$_POST["insertDatoreDomicilio"].'</td>';
+  $html .= '</tr>';
+  $html .= '<tr><td><b>Telefono datore:</b></td>';
+  $html .= '<td><b>Formatore:</b></td>';
+  $html .= '<td><b>Email formatore:</b></td>';;
+  $html .= '</tr>';
+  $html .= '<tr><td>'.$_POST["insertDatoreTelefono"].'</td>';
+  $html .= '<td>'.$_POST["insertFormatore"].'</td>';
+  $html .= '<td>'.$_POST["insertEmailFormatore"].'</td>';
+  $html .= '</tr>';
+  $html .= '<tr><td><b>osservazioni:</b></td>';
+  $html .= '<td colspan="2">'.$_POST["osservazioniFormatore"].'</td>';
   $html .= '</tr>';
   $html .= '</table>';
 

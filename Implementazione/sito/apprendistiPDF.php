@@ -108,46 +108,46 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
     <thead>
       <tr>';
   if(isset($_POST["contratto"])){
-    $html .= '<th>Contratto:</th>';
+    $html .= '<th><b>Contratto:</b></th>';
   }
   if(isset($_POST["nome"])){
-    $html .= '<th>Nome Apprendista:</th>';
+    $html .= '<th><b>Nome Apprendista:</b></th>';
   }
   if(isset($_POST["dataNascita"])){
-    $html .= '<th>Data di Nascita:</th>';
+    $html .= '<th><b>Data di Nascita:</b></th>';
   }
   if(isset($_POST["telefono"])){
-    $html .= '<th>Telefono:</th>';
+    $html .= '<th><b>Telefono:</b></th>';
   }
   if(isset($_POST["indirizzo"])){
-    $html .= '<th>Indirizzo:</th>';
+    $html .= '<th><b>Indirizzo:</b></th>';
   }
   if(isset($_POST["domicilio"])){
-    $html .= '<th>Domicilio:</th>';
+    $html .= '<th><b>Domicilio:</b></th>';
   }
   if(isset($_POST["statuto"])){
-    $html .= '<th>Statuto:</th>';
+    $html .= '<th><b>Statuto:</b></th>';
   }
   if(isset($_POST["rappresentante"])){
-    $html .= '<th>Rappresentante:</th>';
+    $html .= '<th><b>Rappresentante:</b></th>';
   }
   if(isset($_POST["sede"])){
-    $html .= '<th>Sede:</th>';
+    $html .= '<th><b>Sede:</b></th>';
   }
   if(isset($_POST["dataInizio"])){
-    $html .= '<th>Data di inizio:</th>';
+    $html .= '<th><b>Data di inizio:</b></th>';
   }
   if(isset($_POST["dataFine"])){
-    $html .= '<th>Data di fine:</th>';
+    $html .= '<th><b>Data di fine:</b></th>';
   }
   if(isset($_POST["annoScolastico"])){
-    $html .= '<th>Anno scolastico:</th>';
+    $html .= '<th><b>Anno scolastico:</b></th>';
   }
   if(isset($_POST["datore"])){
-    $html .= '<th>Datore:</th>';
+    $html .= '<th><b>Datore:</b></th>';
   }
   if(isset($_POST["formatore"])){
-    $html .= '<th>Formatore:</th>';
+    $html .= '<th><b>Formatore:</b></th>';
   }
 
     $html.="</tr>";
@@ -160,7 +160,8 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
       $html.="<td>".$row['apprendista']."</td>";
     }
     if(isset($_POST["dataNascita"])){
-      $html.="<td>".$row['dataNascita']."</td>";
+      $dato = explode('-', $_POST["dataNascita"]);
+      $html.= $dato[2].'.'.$dato[1].'.'.$dato[0];
     }
     if(isset($_POST["telefono"])){
       $html.="<td>".$row['telefono']."</td>";
@@ -181,7 +182,8 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
       $html.="<td>".$row['sede']."</td>";
     }
     if(isset($_POST["dataInizio"])){
-      $html.="<td>".$row['dataInizio']."</td>";
+      $dato = explode('-', $_POST["dataInizio"]);
+      $html.= $dato[2].'.'.$dato[1].'.'.$dato[0];
     }
     if(isset($_POST["dataFine"])){
       $html.="<td>".$row['dataFine']."</td>";

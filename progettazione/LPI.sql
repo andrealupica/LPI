@@ -121,9 +121,7 @@ create table file_(
 	ON UPDATE CASCADE
 	ON DELETE NO ACTION
 );
-INSERT into utente() values('andrea.lupica@samtrevano.ch', '1a1dc91c907325c69271ddf0c944bc72', 0,1,2);
-INSERT INTO `datore` (`dat_id`, `dat_nome`, `dat_indirizzo`, `dat_domicilio`, `dat_telefono`, `dat_flag`, `dat_emailHR`, `dat_nomeHR`, `dat_telefonoHR`) VALUES (1, 'azienda', 'via', 'domicilio', '3292189283', '1', 'ok', 'ok', 'ok')
-INSERT INTO `formatore` (`for_email`, `for_nome`, `for_osservazioni`, `for_telefono`, `for_flag`, `dat_id`) VALUES ('andrea.lupica@samtrevano.ch', 'andrea', 'osservazioni', '183948', '1', '1')
-INSERT INTO `sede` (`sed_id`, `sed_nome`) VALUES ('1', 'scuola')
-INSERT INTO `apprendista` (`app_idContratto`, `app_nome`, `app_telefono`, `app_dataNascita`, `app_rappresentante`, `app_stato`, `app_indirizzo`, `app_domicilio`, `app_osservazioni`, `app_professione`, `app_flag`, `app_annoScolastico`, `app_annoFine`, `app_dataInizio`, `grui_id`, `sed_id`, `dat_id`, `for_email`) VALUES ('2016.1029', 'apprendista1', '1234567890', '2017-05-02 00:00:00', 'papa apprendista 1', 'vivo', 'via delle vie', '1515 casa', 'prova', 'apprendista', '1', '0', '0', '2017-05-01 00:00:00', '1', '1', '1', 'andrea.lupica@samtrevano.ch')
-INSERT INTO `apprendista` (`app_idContratto`, `app_nome`, `app_telefono`, `app_dataNascita`, `app_rappresentante`, `app_stato`, `app_indirizzo`, `app_domicilio`, `app_osservazioni`, `app_professione`, `app_flag`, `app_annoScolastico`, `app_annoFine`, `app_dataInizio`, `grui_id`, `sed_id`, `dat_id`, `for_email`) VALUES ('2016.1021', 'apprendista2', '1234567890', '2017-05-02 00:00:00', 'papa apprendista 2', 'vivo', 'via delle vie', '1515 casa', 'prova', 'apprendista', '1', '0', '0', '2017-05-01 00:00:00', '1', '1', '1', 'andrea.lupica@samtrevano.ch')
+
+INSERT INTO gruppoInserimento(grui_nome) VALUES ("2015");
+INSERT INTO gruppoInserimento(grui_nome) VALUES ("2016");
+INSERT INTO gruppoInserimento(grui_nome) VALUES ("2017");

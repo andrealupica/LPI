@@ -113,7 +113,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
         $("#messaggioNome").append("formato errato: inserire solo lettere");
         n++;
       }
-      
+
       if(regexTelefono.test(telefono)){
         $("#messaggioTelefono").append("il formato va bene");
       }
@@ -155,31 +155,39 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
     <div class="container">
       <h1 class="col-xs-12">Formatori</h1>
       <br>
-      <div class="col-xs-12">
-        <label class="col-sm-3 col-xs-4 control-label">Ricerca: </label>
-        <div class="col-sm-5 col-xs-8">
-          <div class="input-group">
-            <span class="input-group-addon glyphicon glyphicon-search"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" id="search"></input>
+      <form method="post" action="formatoriPDF.php">
+        <input type="hidden" name="pdf"/>
+        <div class="col-xs-12">
+          <label class="col-sm-2 col-xs-4 control-label">Ricerca: </label>
+          <div class="col-sm-4 col-xs-8">
+            <div class="input-group">
+              <span class="input-group-addon glyphicon glyphicon-search"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" id="search"></input>
+            </div>
+          </div>
+          <?php if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
+          <div class="col-sm-3 col-xs-6" style="margin-top: 0px;">
+            <button type="button" class="btn btn-primary col-xs-12" data-toggle="modal" data-target="#myModalI" onclick="modalInsert()">
+              <span class="glyphicon glyphicon-pencil"></span> inserisci
+            </button>
+          </div>
+          <?php } ?>
+          <div class="col-sm-3 col-xs-6" style="margin-top:0px">
+            <button type="submit" class="btn btn-primary col-xs-12">
+              PDF
+            </button>
           </div>
         </div>
-        <?php if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
-        <div class="col-sm-4 col-xs-6" style="margin-top: 0px;">
-          <button class="btn btn-primary col-xs-12" data-toggle="modal" data-target="#myModalI" onclick="modalInsert()">
-            <span class="glyphicon glyphicon-pencil"></span> inserisci
-          </button>
+        <div class="col-xs-12">
+          <button type="button" class="btn btn-default btn-md" id="bCheckbox">Nascondi Checkbox</button>
         </div>
-        <?php } ?>
-      </div>
-      <div class="col-xs-12">
-        <button class="btn btn-default btn-md" id="bCheckbox">Nascondi Checkbox</button>
-      </div>
-      <div class="col-xs-12" id="checkbox">
-        <label class="col-xs-3">nome: <input type="checkbox" name="nome" value="nome" checked="true" id="checknome"></label>
-        <label class="col-xs-3">email: <input type="checkbox" name="email" value="email" checked="true" id="checkemail"></label>
-        <label class="col-xs-3">telefono: <input type="checkbox" name="telefono" value="telefono" id="checktelefono"></label>
-        <label class="col-xs-3">datore: <input type="checkbox" name="datore" value="datore" checked="true" id="checkddatore"></label>
-      </div>
+        <div class="col-xs-12" id="checkbox">
+          <label class="col-xs-3">nome: <input type="checkbox" name="nome" value="nome" checked="true" id="checknome"></label>
+          <label class="col-xs-3">email: <input type="checkbox" name="email" value="email" checked="true" id="checkemail"></label>
+          <label class="col-xs-3">telefono: <input type="checkbox" name="telefono" value="telefono" id="checktelefono"></label>
+          <label class="col-xs-3">datore: <input type="checkbox" name="datore" value="datore" checked="true" id="checkddatore"></label>
+        </div>
+      </form>
       <div class="col-xs-6" id="errori">
       </div>
       <table data-role="table" data-mode="columntoggle" class="ui-responsive table table-striped table-bordered" id="table" >

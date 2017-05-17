@@ -11,11 +11,38 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
   $telefonoHR = $_POST["insertTelefonoHR"];
   try{
     // seleziono i formatori con quell email
-    $for = $conn->prepare("SELECT dat_id from datore where dat_nome=:nome");
-    $for->bindParam(':nome',$nome);
-    $for->execute();
-    // controllo che non esista già
-    if($for->rowCount()==0){
+    $dat = $conn->prepare("SELECT dat_id,dat_flag AS 'flag' from datore where dat_nome=:nome");
+    $dat->bindParam(':nome',$nome);
+    $dat->execute();
+    $row = $dat->fetch(PDO::FETCH_ASSOC);
+    // controllo che esiste nel db
+    if($dat->rowCount()==1){
+      if($row["flag"]==0){ // se nascosto, mostralo visibile
+        try{
+          $query=$conn->prepare("UPDATE datore SET dat_indirizzo =:indirizzo,dat_domicilio =:domicilio,dat_telefono =:telefono,
+                                  dat_flag=1,dat_emailHR=:emailHR,dat_nomeHR =:nomeHR, dat_telefonoHR=:telefonoHR
+                                   where dat_nome=:nome");
+          $query->bindParam(':nome',$nome);
+          $query->bindParam(':indirizzo',$indirizzo);
+          $query->bindParam(':domicilio',$domicilio);
+          $query->bindParam(':telefono',$telefono);
+          $query->bindParam(':emailHR',$emailHR);
+          $query->bindParam(':nomeHR',$nomeHR);
+          $query->bindParam(':telefonoHR',$telefonoHR);
+          $query->execute();
+          echo "<script> location.href='datori.php'</script>";
+        }
+        catch(PDOException $e)
+        {
+        echo $e;
+        }
+      }
+      else{
+        echo  "<script>document.getElementById('errori').innerHTML='il datore esiste già';document.getElementById('errori').setAttribute('class','col-xs-6 alert alert-danger')</script>";
+      }
+    }
+    // se non esiste lo aggiungo
+    else{
       try{
         $query = $conn->prepare("INSERT INTO datore(dat_nome, dat_indirizzo,dat_domicilio,dat_telefono,dat_emailHR,dat_nomeHR,dat_telefonoHR)
                                 values(:nome,:indirizzo,:domicilio,:telefono,:emailHR,:nomeHR,:telefonoHR)");
@@ -35,10 +62,6 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
       {
         echo $e;
       }
-    }
-    // avviso della ripetizione
-    else{
-      echo  "<script>document.getElementById('errori').innerHTML='il datore esiste già';document.getElementById('errori').setAttribute('class','col-xs-6 alert alert-danger')</script>";
     }
   }
   catch(PDOException $e)

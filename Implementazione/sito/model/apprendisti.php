@@ -38,7 +38,7 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
     $nascita1[1]=00;
   }
   $nascita = $nascita1[2].'-'.$nascita1[1].'-'.$nascita1[0];
-
+  //echo "<script>alert('prova')</script>";
   // controlla se esiste la sede altrimenti aggiungila
   try{
     $query = $conn->prepare("SELECT sed_id AS 'id' from sede where sed_nome=:sede");
@@ -72,13 +72,55 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
   }
   // controllo se esiste già quell'apprendista
   try{
-    $app = $conn->prepare("SELECT app_nome from apprendista where app_idContratto=:contratto && app_annoFine=:fine && app_annoScolastico=:scolastico");
+    $app = $conn->prepare("SELECT app_nome,app_flag AS 'flag' from apprendista where app_idContratto=:contratto && app_annoFine=:fine && app_annoScolastico=:scolastico");
     $app->bindParam(':contratto',$contratto);
     $app->bindParam(':scolastico',$scolastico);
     $app->bindParam(':fine',$fine);
     $app->execute();
-    // nel caso in cui non esistesse lo aggiungo
-    if($app->rowCount()==0){
+    $row = $app->fetch(PDO::FETCH_ASSOC);
+    //echo $row["flag"];
+    // se è presente
+    if($app->rowCount()==1){
+      if($row["flag"]==0){ // ma nascosto, mostralo visibile
+        try{
+          $query=$conn->prepare("UPDATE apprendista SET
+            app_nome=:nome,app_telefono=:telefono,app_dataNascita=:nascita,app_rappresentante=:rappresentante,
+            app_statuto=:statuto,app_indirizzo=:indirizzo,app_domicilio=:domicilio,
+            app_professione=:professione,app_flag=1,
+            app_dataInizio=:inizio,grui_id=:gruppo,sed_id=:sede,dat_id=:datore,for_email=:formatore
+            WHERE app_idContratto=:contratto && app_annoScolastico=:scolastico && app_annoFine=:fine;");
+
+          $query->bindParam(':contratto',$contratto);
+          $query->bindParam(':nome',$nome);
+          $query->bindParam(':telefono',$telefono);
+          $query->bindParam(':nascita',$nascita);
+          $query->bindParam(':rappresentante',$rappresentante);
+          $query->bindParam(':statuto',$statuto);
+          $query->bindParam(':indirizzo',$indirizzo);
+          $query->bindParam(':domicilio',$domicilio);
+          $query->bindParam(':professione',$professione);
+          $query->bindParam(':scolastico',$scolastico);
+          $query->bindParam(':fine',$fine);
+          $query->bindParam(':inizio',$inizio);
+          $query->bindParam(':gruppo',$gruppo);
+          $query->bindParam(':sede',$sedeId);
+          $query->bindParam(':datore',$datore);
+          $query->bindParam(':formatore',$formatore);
+          $query->execute();
+          // se non i sono problemi reindirizza alla pagina principale
+          //echo "<script> location.href='apprendisti.php'</script>";
+        }
+        catch(PDOException $e)
+        {
+          echo $e;
+        }
+      }
+      else{ // altrimenti non fare nulla poiché vuol dire che è visibile
+        echo  "<script>document.getElementById('errori').innerHTML='l apprendista esiste già quindi non è stato inserito';document.getElementById('errori').setAttribute('class','col-xs-6 alert alert-danger')</script>";
+      }
+    }
+    // se invece non è presente crealo
+    else{
       try{
         $query = $conn->prepare("INSERT INTO apprendista(app_idContratto, app_nome, app_telefono, app_dataNascita,
           app_rappresentante, app_statuto, app_indirizzo, app_domicilio,
@@ -105,16 +147,12 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
         $query->bindParam(':datore',$datore);
         $query->bindParam(':formatore',$formatore);
         $query->execute();
-        echo "<script> location.href='apprendisti.php'</script>";
+        //echo "<script> location.href='apprendisti.php'</script>";
       }
       catch(PDOException $e)
       {
         echo $e;
       }
-    }
-    // altrimenti segnalo l'utnte l'esistenza
-    else{
-      echo  "<script>document.getElementById('errori').innerHTML='l apprendista esiste già quindi non è stato inserito';document.getElementById('errori').setAttribute('class','col-xs-6 alert alert-danger')</script>";
     }
   }
   catch(PDOException $e)

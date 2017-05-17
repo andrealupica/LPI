@@ -132,7 +132,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["dettagl
         </div>
         <div class="col-sm-4 col-xs-6" >
           <label id="scolasticoLb">Telefono datore:</label>
-          <input type="text" name="insertDdatoreTelefono" readonly="true"  id="insertDdatoreTelefono" value="<?php echo $row["datoreTelefono"] ?>"  class="form-control" placeholder="" required="required"/>
+          <input type="text" name="insertDatoreTelefono" readonly="true"  id="insertDatoreTelefono" value="<?php echo $row["datoreTelefono"] ?>"  class="form-control" placeholder="" required="required"/>
         </div>
         <div class="col-sm-4 col-xs-6">
           <label id="formatoreLb">Formatore:</label>
@@ -144,7 +144,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["dettagl
         </div>
         <div class="col-sm-4 col-xs-12" style="margin-bottom:10px">
           <label id="osservazionifLb">Osservazioni Formatore:</label>
-          <textarea class="col-xs-12 form-control" readonly="true" name="osservazionif" style="margin-top:0px" ><?php echo $row["osservazioniFormatore"]?>
+          <textarea class="col-xs-12 form-control" readonly="true" name="osservazioniFormatore" style="margin-top:0px" ><?php echo $row["osservazioniFormatore"]?>
           </textarea>
         </div>
         <div class="col-sm-3 col-xs-6" style="margin-top:0px">
