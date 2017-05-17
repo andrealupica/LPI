@@ -159,6 +159,6 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   $pdf->Output('datori.pdf', 'I');
   }
 else{
-  echo "<script>location.href='apprendisti.php'</script>";
+  echo "<script>location.href='datori.php'</script>";
 }
 ?>

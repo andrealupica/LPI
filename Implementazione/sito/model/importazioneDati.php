@@ -70,7 +70,7 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
          }
          catch(PDOException $e)
          {
-           echo $e;
+           //echo $e;
          }
        }
        else{
@@ -80,7 +80,7 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
      }
      catch(PDOException $e)
      {
-       echo $e;
+       //echo $e;
      }
 
      ################################################################################## gestione gruppo
@@ -104,7 +104,7 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
          }
          catch(PDOException $e)
          {
-           echo $e;
+           //echo $e;
          }
        }
        else{
@@ -114,7 +114,7 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
      }
      catch(PDOException $e)
      {
-       echo $e;
+       //echo $e;
      }
 
      ################################################################################### inserimento datore
@@ -144,7 +144,7 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
            }
            catch(PDOException $e)
            {
-           echo $e;
+           //echo $e;
            }
          }
          else{
@@ -170,13 +170,13 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
          }
          catch(PDOException $e)
          {
-           echo $e;
+           //echo $e;
          }
        }
      }
      catch(PDOException $e)
      {
-       echo $e;
+       //echo $e;
      }
 
      ##################### seleziono l'id del datore, il datore esiste per forza dato che se non esisteva per cascata viene inserito prima del formatore e dell apprendista
@@ -195,8 +195,6 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
        $for->bindParam(':email',$emailFormatore);
        $for->execute();
        // controllo se è presente sul db
-       $row = $for->fetch(PDO::FETCH_ASSOC);
-       echo $row["flag"];
        if($for->rowCount()==1){
          if($row["flag"]==0){ // se nascosto, mostralo visibile
            try{
@@ -210,7 +208,7 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
            }
            catch(PDOException $e)
            {
-             echo $e;
+             //echo $e;
            }
          }
          else{  // altrimenti avviso della ripetizione
@@ -233,14 +231,14 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
          }
          catch(PDOException $e)
          {
-           echo $e;
+           //echo $e;
          }
        }
 
      }
      catch(PDOException $e)
      {
-       echo $e;
+       //echo $e;
      }
 
 
@@ -254,7 +252,6 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
        $app->bindParam(':fine',$fineContratto);
        $app->execute();
        $row = $app->fetch(PDO::FETCH_ASSOC);
-       //echo $row["flag"];
        // se è presente
        if($app->rowCount()==1){
          if($row["flag"]==0){ // ma nascosto, mostralo visibile
@@ -284,15 +281,13 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
              $query->bindParam(':formatore',$emailFormatore);
              $query->execute();
              // se non i sono problemi reindirizza alla pagina principale
-             //echo "<script> location.href='apprendisti.php'</script>";
            }
            catch(PDOException $e)
            {
-             echo $e;
+             //echo $e;
            }
          }
          else{ // altrimenti non fare nulla poiché vuol dire che è visibile
-           //echo  "<script>document.getElementById('errori').innerHTML='l apprendista esiste già quindi non è stato inserito';document.getElementById('errori').setAttribute('class','col-xs-6 alert alert-danger')</script>";
          }
        }
        // se invece non è presente crealo
@@ -334,23 +329,33 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
          }
          catch(PDOException $e)
          {
-           echo $e;
+           //echo $e;
          }
        }
      }
      catch(PDOException $e)
      {
-       echo $e;
+      // echo $e;
      }
    }
-  echo "<script> location.href='apprendisti.php'</script>";
-  fclose($handle);
-  #################################################################### dopo aver chiusto il file lo salvo sul server
+    fclose($handle);
+    #################################################################### dopo aver chiusto il file lo salvo sul server e salvo il nome nel db
 
-  $target_dir = "uploads/";
-  $target_file = $target_dir.date("d-m-Y_H-i-s")."-".basename($_FILES["idCSV"]["name"]);
-  move_uploaded_file($_FILES['idCSV']['tmp_name'], $target_file);
+    $target_dir = "uploads/";
+    $target_file = $target_dir.date("d-m-Y_H-i-s")."-".basename($_FILES["idCSV"]["name"]);
+    move_uploaded_file($_FILES['idCSV']['tmp_name'], $target_file);
 
+    try{
+      $query = $conn->prepare("INSERT into file_(fil_nome,ute_email) values(:nome,:email)");
+      $nome = date("d-m-Y_H-i-s")."-".basename($_FILES["idCSV"]["name"]);
+      $query->bindParam(':nome',$nome);
+      $query->bindParam(':email',$_SESSION["email"]);
+      $query->execute();
+    }
+    catch(PDOException $e){
+      //echo $e;
+    }
+    echo "<script> location.href='apprendisti.php'</script>";
   }
 }
 

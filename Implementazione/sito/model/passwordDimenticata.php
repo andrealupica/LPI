@@ -41,7 +41,7 @@
 				}
 				catch(PDOException $e)
 				{
-					echo  $e;
+					//echo  $e;
 				}
 			}
 			// avviso se le email sono diverse

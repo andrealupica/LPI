@@ -115,7 +115,7 @@ create table apprendista(
 );
 create table file_(
 	fil_id int auto_increment primary key,
-	fil_nome varchar(50),
+	fil_nome varchar(200),
 	ute_email varchar(100),
 	foreign key(ute_email) references utente(ute_email)
 	ON UPDATE CASCADE

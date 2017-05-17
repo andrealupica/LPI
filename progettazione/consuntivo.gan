@@ -63,12 +63,15 @@
             <task id="72" name="informazioni datore" meeting="false" start="2017-05-15" duration="1" complete="0" expand="true"/>
             <task id="74" name="inserimento datore" meeting="false" start="2017-05-15" duration="1" complete="0" expand="true"/>
             <task id="76" name="modifica datore" meeting="false" start="2017-05-15" duration="1" complete="0" expand="true"/>
-            <task id="46" name="pdf formatore" meeting="false" start="2017-05-16" duration="1" complete="0" expand="true"/>
-            <task id="48" name="pdf apprendisti" meeting="false" start="2017-05-16" duration="1" complete="0" expand="true"/>
-            <task id="27" name="importazione file csv" meeting="false" start="2017-05-16" duration="2" complete="0" expand="true"/>
-            <task id="49" name="pagina delle email + storico" meeting="false" start="2017-05-18" duration="3" complete="0" expand="true"/>
-            <task id="50" name="creazione test" meeting="false" start="2017-05-22" duration="2" complete="0" expand="true"/>
-            <task id="80" name="test" meeting="false" start="2017-05-22" duration="2" complete="0" expand="true"/>
+            <task id="46" name="pdf formatore" meeting="false" start="2017-05-15" duration="1" complete="0" expand="true"/>
+            <task id="48" name="pdf apprendisti" meeting="false" start="2017-05-15" duration="1" complete="0" expand="true"/>
+            <task id="84" name="pdf apprendista" meeting="false" start="2017-05-16" duration="1" complete="0" expand="true"/>
+            <task id="86" name="pdf formatori" meeting="false" start="2017-05-16" duration="1" complete="0" expand="true"/>
+            <task id="88" name="pdf datori" meeting="false" start="2017-05-16" duration="1" complete="0" expand="true"/>
+            <task id="27" name="import file csv + salvataggio" meeting="false" start="2017-05-16" duration="1" complete="0" expand="true"/>
+            <task id="49" name="pagina delle email + storico" meeting="false" start="2017-05-16" duration="3" complete="0" expand="true"/>
+            <task id="93" name="gestione dati" meeting="false" start="2017-05-18" duration="3" complete="0" expand="true"/>
+            <task id="80" name="testcase + test" meeting="false" start="2017-05-22" duration="2" complete="0" expand="true"/>
         </task>
         <task id="52" name="consegna" color="#8cb6ce" meeting="true" start="2017-05-24" duration="0" complete="0" expand="true"/>
     </tasks>

@@ -160,8 +160,8 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
       $html.="<td>".$row['apprendista']."</td>";
     }
     if(isset($_POST["dataNascita"])){
-      $dato = explode('-', $_POST["dataNascita"]);
-      $html.= $dato[2].'.'.$dato[1].'.'.$dato[0];
+      $dato = explode('-', $row["dataNascita"]);
+      $html.= "<td>".$dato[2].'.'.$dato[1].'.'.$dato[0]."</td>";
     }
     if(isset($_POST["telefono"])){
       $html.="<td>".$row['telefono']."</td>";
@@ -182,8 +182,8 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
       $html.="<td>".$row['sede']."</td>";
     }
     if(isset($_POST["dataInizio"])){
-      $dato = explode('-', $_POST["dataInizio"]);
-      $html.= $dato[2].'.'.$dato[1].'.'.$dato[0];
+      $dato = explode('-', $row["dataInizio"]);
+      $html.= "<td>".$dato[2].'.'.$dato[1].'.'.$dato[0.]."</td>";
     }
     if(isset($_POST["dataFine"])){
       $html.="<td>".$row['dataFine']."</td>";

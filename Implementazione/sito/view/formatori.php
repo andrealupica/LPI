@@ -281,7 +281,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
                   <h4 id="titoloInserimento" class="modal-title">Creazione di un datore </h4>
                 </div>
                 <div class="modal-body">
-                  <form id="formInsert" method="post">
+                  <form id="formInsert" method="post" target="_blank">
                     <div class="row">
                       <div id="nomeDiv" class="col-xs-6">
                         <label id="nomeLb">Nome e cognome:</label>

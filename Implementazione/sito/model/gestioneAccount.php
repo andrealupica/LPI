@@ -75,7 +75,7 @@ if(isset($_POST["emailInsert"]) AND !empty($_POST["emailInsert"]) AND isset($_SE
         $flag->bindParam(':password',$pass);
         $flag->execute();
       }else{ // se è presente ma non cancellato
-        
+
       }
     }
     else{ // crea nuovo account
@@ -96,7 +96,7 @@ if(isset($_POST["emailInsert"]) AND !empty($_POST["emailInsert"]) AND isset($_SE
   }
 	catch(PDOException $e)
 	{
-		echo $e;
+		//echo $e;
 	}
 }
 

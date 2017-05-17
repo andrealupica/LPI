@@ -323,7 +323,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
                 }
                 catch(PDOException $e)
                 {
-                  echo $e;
+                  //echo $e;
                 }
                   while($row = $gruppo->fetch(PDO::FETCH_ASSOC)){
                 ?>

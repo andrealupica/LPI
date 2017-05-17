@@ -31,7 +31,7 @@
     }
     catch(PDOException $e)
     {
-      echo $e;
+      //echo $e;
     }
   }
 

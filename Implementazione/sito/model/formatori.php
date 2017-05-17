@@ -11,53 +11,52 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
     $for = $conn->prepare("SELECT for_email,for_flag AS 'flag' from formatore where for_email=:email");
     $for->bindParam(':email',$email);
     $for->execute();
-    // controllo se è presente sul db
-    $row = $for->fetch(PDO::FETCH_ASSOC);
-    echo $row["flag"];
-    if($for->rowCount()==1){
-      if($row["flag"]==0){ // se nascosto, mostralo visibile
-        try{
-          $query=$conn->prepare("UPDATE formatore SET for_nome=:nome,for_telefono=:telefono,dat_id=:datore,for_flag=1 where for_email=:email;");
-          $query->bindParam(':nome',$nome);
-          $query->bindParam(':telefono',$telefono);
-          $query->bindParam(':datore',$datore);
-          $query->bindParam(':email',$email);
-          $query->execute();
-          echo "<script> location.href='formatori.php'</script>";
-        }
-        catch(PDOException $e)
-        {
-          echo $e;
-        }
-      }
-      else{  // altrimenti avviso della ripetizione
-        echo  "<script>document.getElementById('errori').innerHTML='il formatore esiste già';document.getElementById('errori').setAttribute('class','col-xs-6 alert alert-danger')</script>";
-      }
-    }
-    // se non c'è lo aggiungo
-    else{
-      try{
-        $query = $conn->prepare("INSERT INTO formatore(for_email, for_nome,  for_telefono, dat_id)
-                        VALUES (:email,:nome,:telefono,:datore)");
-        $query->bindParam(':email',$email);
-        $query->bindParam(':nome',$nome);
-        $query->bindParam(':telefono',$telefono);
-        $query->bindParam(':datore',$datore);
-        // se non ci sono stati errori ricarico la pagina
-        if($query->execute()!=false){
-          echo "<script> location.href='formatori.php'</script>";
-        }
-      }
-      catch(PDOException $e)
-      {
-        echo $e;
-      }
-    }
-
   }
   catch(PDOException $e)
   {
-    echo $e;
+    //echo $e;
+  }
+  // controllo se è presente sul db
+  $row = $for->fetch(PDO::FETCH_ASSOC);
+  echo $row["flag"];
+  if($for->rowCount()==1){
+    if($row["flag"]==0){ // se nascosto, mostralo visibile
+      try{
+        $query=$conn->prepare("UPDATE formatore SET for_nome=:nome,for_telefono=:telefono,dat_id=:datore,for_flag=1 where for_email=:email;");
+        $query->bindParam(':nome',$nome);
+        $query->bindParam(':telefono',$telefono);
+        $query->bindParam(':datore',$datore);
+        $query->bindParam(':email',$email);
+        $query->execute();
+        echo "<script> location.href='formatori.php'</script>";
+      }
+      catch(PDOException $e)
+      {
+        //echo $e;
+      }
+    }
+    else{  // altrimenti avviso della ripetizione
+      echo  "<script>document.getElementById('errori').innerHTML='il formatore esiste già';document.getElementById('errori').setAttribute('class','col-xs-6 alert alert-danger')</script>";
+    }
+  }
+  // se non c'è lo aggiungo
+  else{
+    try{
+      $query = $conn->prepare("INSERT INTO formatore(for_email, for_nome,  for_telefono, dat_id)
+                      VALUES (:email,:nome,:telefono,:datore)");
+      $query->bindParam(':email',$email);
+      $query->bindParam(':nome',$nome);
+      $query->bindParam(':telefono',$telefono);
+      $query->bindParam(':datore',$datore);
+      // se non ci sono stati errori ricarico la pagina
+      if($query->execute()!=false){
+        echo "<script> location.href='formatori.php'</script>";
+      }
+    }
+    catch(PDOException $e)
+    {
+      //echo $e;
+    }
   }
 }
 
@@ -72,7 +71,7 @@ if(isset($_POST["formatoreCancellato"]) AND isset($_SESSION['email']) AND ($_SES
   }
   catch(PDOException $e)
   {
-    echo $e;
+    //echo $e;
   }
 }
 
@@ -95,7 +94,7 @@ if(isset($_POST["modifica"]) && isset($_POST["dati"]) AND isset($_SESSION['email
   }
   catch(PDOException $e)
   {
-  echo $e;
+    //echo $e;
   }
 
 }

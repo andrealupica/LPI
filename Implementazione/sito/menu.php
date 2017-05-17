@@ -35,7 +35,7 @@ if(isset($_SESSION["email"])){?>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestione <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="gestioneAccount.php">Account</a></li>
-            <li><a href="gestioneEmail">Email</a></li>
+            <li><a href="gestioneEmail.php">Email</a></li>
             <?php
              if($_SESSION["tipo"]=="master"){ ?>
             <li><a href="#">Dati</a></li>

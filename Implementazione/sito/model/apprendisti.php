@@ -58,7 +58,7 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
       }
       catch(PDOException $e)
       {
-        echo $e;
+        //echo $e;
       }
     }
     else{
@@ -68,7 +68,7 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
   }
   catch(PDOException $e)
   {
-    echo $e;
+    //echo $e;
   }
   // controllo se esiste già quell'apprendista
   try{
@@ -112,7 +112,7 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
         }
         catch(PDOException $e)
         {
-          echo $e;
+          //echo $e;
         }
       }
       else{ // altrimenti non fare nulla poiché vuol dire che è visibile
@@ -151,13 +151,13 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
       }
       catch(PDOException $e)
       {
-        echo $e;
+        //  echo $e;
       }
     }
   }
   catch(PDOException $e)
   {
-    echo $e;
+    //echo $e;
   }
 }
 
@@ -179,7 +179,7 @@ if(isset($_POST["apprendistaCancellato"]) AND isset($_SESSION['email']) AND ($_S
   }
   catch(PDOException $e)
   {
-    echo $e;
+    //echo $e;
   }
 }
 
@@ -229,7 +229,7 @@ if(isset($_POST["modifica"]) && isset($_POST["dati"]) AND isset($_SESSION['email
       }
       catch(PDOException $e)
       {
-        echo $e;
+        //echo $e;
       }
     }
     else{
@@ -239,7 +239,7 @@ if(isset($_POST["modifica"]) && isset($_POST["dati"]) AND isset($_SESSION['email
   }
   catch(PDOException $e)
   {
-    echo $e;
+    //echo $e;
   }
 
   // aggiorno l'apprendista
@@ -274,7 +274,7 @@ if(isset($_POST["modifica"]) && isset($_POST["dati"]) AND isset($_SESSION['email
   }
   catch(PDOException $e)
   {
-    echo $e;
+    //echo $e;
   }
 }
 ?>
