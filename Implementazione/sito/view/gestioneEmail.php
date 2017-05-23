@@ -53,15 +53,15 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
     });
 
     $("#bModifica").click(function(){
-      if($("#gElimina").val()!=null || $("#gElimina")!=""){
-        $("#gElimina").val("");
+      if($("#pElimina").val()!=null || $("#gElimina")!=""){
+        $("#pElimina").val("");
         $("#formModifica").submit();
       }
     });
 
     $("#gruppoModificato").change(function(){
       valore=$("#gruppoModificato").val();
-      $("#gElimina").val(valore);
+      $("#pElimina").val(valore);
       $("#modificaGruppo").empty();
       $.ajax({
         type:"POST",
@@ -196,33 +196,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
         </div>
       </div>
     </div>
-    <!-- modal -->
-    <div class="container">
-      <!-- Modal di eliminazione-->
-      <div class="modal fade" id="myModalD" role="dialog">
-        <div class="modal-dialog">
 
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Eliminazione gruppo</h4>
-            </div>
-            <div class="modal-body">
-              <div class="alert alert-danger">
-                Sei sicuro di voler eliminare il gruppo?
-              </div>
-            </div>
-            <div class="modal-footer">
-              <form method="post" action="">
-                <button type="submit" class="btn btn-default">ok</button>
-                <input type="hidden" name="datoreCancellato" id="pElimina" required="required"/>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="container">
       <!-- Modal di inserimento-->
@@ -313,10 +287,38 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
               </form>
             </div>
             <div class="modal-footer">
-              <div class="col-xs-2">
-              </div>
               <button type="submit" id="bModifica" class="btn btn-lg btn-default col-xs-4">modifica gruppo</button>
-              <button type="submit" id="bElimina" class="btn btn-lg btn-danger col-xs-4">elimina gruppo</button>
+              <div class="col-xs-4">
+              </div>
+              <button class="btn btn-lg btn-danger col-xs-4" type="button" return="false" data-toggle="modal" data-target="#myModalD"> elimina gruppo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal -->
+    <div class="container">
+      <!-- Modal di eliminazione-->
+      <div class="modal fade" id="myModalD" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Eliminazione gruppo</h4>
+            </div>
+            <div class="modal-body">
+              <div class="alert alert-danger">
+                Sei sicuro di voler eliminare il gruppo?
+              </div>
+            </div>
+            <div class="modal-footer">
+              <form method="post" action="">
+                <button type="submit" class="btn btn-default">ok</button>
+                <input type="hidden" name="eliminaGruppo" id="pElimina" required="required"/>
+              </form>
             </div>
           </div>
         </div>

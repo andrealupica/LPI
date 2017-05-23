@@ -1,7 +1,7 @@
 <?php
 
 // se si vuole eliminare l'email
-if(isset($_POST["emailCancellata"]) AND isset($_SESSION['email'])){
+if(isset($_POST["emailCancellata"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
   try{
     $email = $_POST['emailCancellata'];
     $query = $conn->prepare("UPDATE utente set ute_flag=0 where ute_email=:email");
@@ -16,7 +16,7 @@ if(isset($_POST["emailCancellata"]) AND isset($_SESSION['email'])){
   }
 }
 // se su vuole modificare un email
-if(isset($_POST["emailModificata"]) && isset($_SESSION['email'])){
+if(isset($_POST["emailModificata"]) && isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
   try{
     $email=$_POST["emailModificata"];
     // se il checkbox è settato allora setto a l' account come amministratore
@@ -58,7 +58,7 @@ if(isset($_POST["emailModificata"]) && isset($_SESSION['email'])){
 }
 
 // se cerco di inserire un account
-if(isset($_POST["emailInsert"]) AND !empty($_POST["emailInsert"]) AND isset($_SESSION['email'])){
+if(isset($_POST["emailInsert"]) AND !empty($_POST["emailInsert"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
   try{
     $email = $_POST['emailInsert'];
     // seleziono e controllo se è già presente

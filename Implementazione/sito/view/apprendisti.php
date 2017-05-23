@@ -56,6 +56,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
             $(this).find(".tb"+valore+"").hide();
           }
         });
+
     });
     // quando il gruppo cambia
     $("#selectgruppo").change(function(){
@@ -110,14 +111,14 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
     $("#bInsert").click(function(){
       var n = 0;
       // regex e creazioni variabili
-      var regexTesto = /^[a-zA-Z]+$/;
+      var regexTesto = /^([a-z A-Z])+$/;
       var regexData = /^(\d{2})\.(\d{2})\.(\d{4})+$/;
       var regexContratto = /^(\d{4})\.(\d{4})+$/;
-      var regexDomicilio = /^([0-9]\s[a-z,A-Z])+$/;
-      var regexAlfa = /^([0-9,a-z,A-Z])+$/;
+      var regexDomicilio = /^(\d{4})\s([a-z ,A-Z])+$/;
+      var regexAlfa = /^([0-9 a-z,A-Z])+$/;
       var regexAnno = /^(\d{4})+$/;
       var regexNumero = /^(\d{1})+$/;
-      var regexTelefono = /^[+]?[0-9]+$/;
+      var regexTelefono = /^[+]?[\s 0-9 \s]+$/;
 
       nome = $("#insertNome").val();
       nascita = $("#insertNascita").val();
@@ -133,7 +134,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       fine = $("#insertFine").val();
       scolastico = $("#insertScolastico").val();
 
-      // svuota campi messaggio
+      // svuota campi messaggio + bordi
       $("#messaggioNome").empty();
       $("#messaggioNascita").empty();
       $("#messaggioContratto").empty();
@@ -147,6 +148,22 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       $("#messaggioInizio").empty();
       $("#messaggioFine").empty();
       $("#messaggioScolastico").empty();
+      $("#insertNome").css("border","1px solid #ccc");
+      $("#insertNascita").css("border","1px solid #ccc");
+      $("#insertContratto").css("border","1px solid #ccc");
+      $("#insertStatuto").css("border","1px solid #ccc");
+      $("#insertIndirizzo").css("border","1px solid #ccc");
+      $("#insertDomicilio").css("border","1px solid #ccc");
+      $("#insertTelefono").css("border","1px solid #ccc");
+      $("#insertProfessione").css("border","1px solid #ccc");
+      $("#insertSede").css("border","1px solid #ccc");
+      $("#insertRappresentante").css("border","1px solid #ccc");
+      $("#insertInizio").css("border","1px solid #ccc");
+      $("#insertFine").css("border","1px solid #ccc");
+      $("#insertScolastico").css("border","1px solid #ccc");
+      $("#gruppoSel").css("border","1px solid #ccc");
+      $("#formatoreSel").css("border","1px solid #ccc");
+      $("#datoreSel").css("border","1px solid #ccc");
 
       // controllo dei campi
       if(regexTesto.test(nome)){
@@ -212,11 +229,11 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
         n++
       }
 
-      if(regexTesto.test(professione)){
+      if(regexAlfa.test(professione)){
         $("#messaggioProfessione").append("il formato va bene");
       }
       else{
-        $("#messaggioProfessione").append("inserire solo lettere");
+        $("#messaggioProfessione").append("inserire lettere o numeri");
         $("#insertProfessione").css("border","1px solid red");
         n++;
       }
@@ -266,7 +283,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
         $("#insertScolastico").css("border","1px solid red");
       }
 
-      if($("#formatoreSel").val()!="" && $("#formatoreSel").val()>0 ){
+      if($("#formatoreSel").val()!=""){
       }
       else{
         $("#formatoreSel").css("border","1px solid red");

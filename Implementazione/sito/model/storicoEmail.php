@@ -1,6 +1,6 @@
 <?php
 // quando cerco di eliminare un apprendista
-if(isset($_POST["emailCancellata"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+if(isset($_POST["emailCancellata"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
   $elimina = $_POST["emailCancellata"];
   //echo "id: ".$elimina;
   //echo "post: ".$elimina;

@@ -1,7 +1,7 @@
 <?php
 
     ###################################################################### creazione del nome del gruppo
-  if(isset($_POST["nomeGruppo"]) AND !empty($_POST["nomeGruppo"]) AND isset($_POST['createGruppo']) AND isset($_SESSION["email"]) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+  if(isset($_POST["nomeGruppo"]) AND !empty($_POST["nomeGruppo"]) AND isset($_POST['createGruppo']) AND isset($_SESSION["email"]) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
     $nomeGruppo = $_POST["nomeGruppo"];
     $createGruppo = $_POST["createGruppo"];
     $dum = implode(",",$createGruppo); // unisco tutti i destinatari in una stringa
@@ -9,12 +9,12 @@
 
     try{
       // controllo che quel gruppo esista già
-      $esistente = $conn->prepare("SELECT grue_id AS 'id',grue_flag AS 'flag' from gruppoEmail where grue_nome=:nome");
+      $esistente = $conn->prepare("SELECT grue_id AS 'id',grue_flag AS 'flag'
+        from gruppoEmail where grue_nome=:nome");
       $esistente->bindParam(':nome',$nomeGruppo);
       $esistente->execute();
     }
     catch(PDOException $e){
-    //  echo $e;
     }
     // se esiste controllo se è stato eliminato
     if($esistente->rowCount()==1){
@@ -95,7 +95,7 @@
   }
 
   ################################################################### eliminazioe del gruppo
-  if(isset($_POST["eliminaGruppo"]) AND !empty($_POST["eliminaGruppo"])  AND isset($_SESSION["email"]) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+  if(isset($_POST["eliminaGruppo"]) AND !empty($_POST["eliminaGruppo"])  AND isset($_SESSION["email"]) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
     $id=$_POST["eliminaGruppo"];
     //echo "<script>alert('".$id."')</script>";
     try{
@@ -112,7 +112,7 @@
 
   ################################################################# modifica del gruppo
 
-  if(isset($_POST["gruppoModificato"]) AND empty($_POST["eliminaGruppo"]) AND isset($_POST["modificaGruppo"]) AND isset($_SESSION["email"]) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+  if(isset($_POST["gruppoModificato"]) AND empty($_POST["eliminaGruppo"]) AND isset($_POST["modificaGruppo"]) AND isset($_SESSION["email"]) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
     $id = $_POST['gruppoModificato'];
     // svuoto i collegamenti
     $svuota = $conn->prepare("DELETE from gruefor where grue_id=:id");
@@ -136,7 +136,7 @@
   }
 
     ################################################################# invio email
-    if(isset($_POST["inviaInput"]) AND isset($_SESSION["email"]) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+    if(isset($_POST["inviaInput"]) AND isset($_SESSION["email"]) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
       $gruppo = $_POST["selectGruppo"];
       $destinatario = $_POST["selectDestinatario"];
       $oggetto = $_POST["oggetto"];
@@ -206,12 +206,11 @@
           $insert->bindParam(':email',$dest[$i]);
           $insert->bindParam(':id',$idEmail);
           $insert->execute();
-          // invio l'email
           $headers = "MIME-Version: 1.0" . "\r\n";
           $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
           $headers .= 'From: <'.$mittente.'>'. "\r\n";
-          mail($dest[$i],$oggetto,$messaggio,$headers);
-
+          mail($dest[$i],$oggetto,$messaggio,$headers);   // invio l'email
+          echo "<script> location.href='gestioneEmail.php'</script>";
         }
         catch(PDOException $e){
           echo $e;

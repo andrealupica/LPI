@@ -1,6 +1,6 @@
 <!-- pagina per la modifica degli apprendisti-->
 <?php
-if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin") && isset($_POST["modifica"])){ // da riguardare
+if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin") && isset($_POST["modifica"])){ // da riguardare
   $modifica = $_POST["modifica"];
   // idContratto/annoScolastico/annoFine
   $m = explode("/",$modifica);
@@ -62,14 +62,14 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
     $("#bSalva").click(function(){
       var n = 0;
       // regex e creazioni variabili
-      var regexTesto = /[a-z,A-Z]/;
-      var regexData = /(\d{2})\.(\d{2})\.(\d{4})+$/;
-      var regexContratto = /(\d{4})\.(\d{4})+$/;
-      var regexDomicilio = /([0-9]\s[a-z,A-Z])/;
-      var regexAlfa = /([0-9,a-z,A-Z])/;
-      var regexAnno = /(\d{4})+$/;
-      var regexNumero = /(\d{1})+$/;
-      var regexTelefono = /[+,0-9]$/;
+      var regexTesto = /^([a-z A-Z])+$/;
+      var regexData = /^(\d{2})\.(\d{2})\.(\d{4})+$/;
+      var regexContratto = /^(\d{4})\.(\d{4})+$/;
+      var regexDomicilio = /^(\d{4})\s([a-z ,A-Z])+$/;
+      var regexAlfa = /^([0-9 \- () a-z,A-Z])+$/;
+      var regexAnno = /^(\d{4})+$/;
+      var regexNumero = /^(\d{1})+$/;
+      var regexTelefono = /^[+]?[\s 0-9 \s]+$/;
 
       nome = $("#insertNome").val();
       nascita = $("#insertNascita").val();
@@ -99,6 +99,9 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       $("#messaggioInizio").empty();
       $("#messaggioFine").empty();
       $("#messaggioScolastico").empty();
+      $("#messaggioDatore").empty();
+      $("#messaggioFormatore").empty();
+      $("#messaggioAnno").empty();
       $("#insertNome").css("border","1px solid #ccc");
       $("#insertNascita").css("border","1px solid #ccc");
       $("#insertContratto").css("border","1px solid #ccc");
@@ -179,11 +182,11 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
         n++
       }
 
-      if(regexTesto.test(professione)){
+      if(regexAlfa.test(professione)){
         $("#messaggioProfessione").append("il formato va bene");
       }
       else{
-        $("#messaggioProfessione").append("inserire solo lettere");
+        $("#messaggioProfessione").append("inserire lettere o numeri");
         $("#insertProfessione").css("border","1px solid red");
         n++;
       }

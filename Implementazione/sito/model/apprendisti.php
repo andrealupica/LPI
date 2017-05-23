@@ -1,7 +1,7 @@
 <?php
 
 // quando cerco di inserire un apprendista
-if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){ // dato che il submit viene effettuato con il controllo non serve il controllo del set di tutto
+if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){ // dato che il submit viene effettuato con il controllo non serve il controllo del set di tutto
   $nome = $_POST["insertNome"];
   $nascita = $_POST["insertNascita"];
   $contratto = $_POST["insertContratto"];
@@ -108,7 +108,7 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
           $query->bindParam(':formatore',$formatore);
           $query->execute();
           // se non i sono problemi reindirizza alla pagina principale
-          //echo "<script> location.href='apprendisti.php'</script>";
+          echo "<script> location.href='apprendisti.php'</script>";
         }
         catch(PDOException $e)
         {
@@ -147,7 +147,7 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
         $query->bindParam(':datore',$datore);
         $query->bindParam(':formatore',$formatore);
         $query->execute();
-        //echo "<script> location.href='apprendisti.php'</script>";
+        echo "<script> location.href='apprendisti.php'</script>";
       }
       catch(PDOException $e)
       {
@@ -162,7 +162,7 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
 }
 
 // quando cerco di eliminare un apprendista
-if(isset($_POST["apprendistaCancellato"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+if(isset($_POST["apprendistaCancellato"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
   $elimina = $_POST["apprendistaCancellato"];
   //echo "post: ".$elimina;
   $el = explode("/",$elimina);
@@ -184,7 +184,7 @@ if(isset($_POST["apprendistaCancellato"]) AND isset($_SESSION['email']) AND ($_S
 }
 
 // quando cerco di modificare un apprendista
-if(isset($_POST["modifica"]) && isset($_POST["dati"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+if(isset($_POST["modifica"]) && isset($_POST["dati"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
   $nome = $_POST["insertNome"];
   $nascita = $_POST["insertNascita"];
   $contratto = $_POST["insertContratto"];

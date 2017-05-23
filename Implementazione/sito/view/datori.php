@@ -73,7 +73,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
 
     $("#bInsert").click(function(){
       var n = 0;
-      // svuota campi messaggio
+      // svuota campi messaggio + bordi
       $("#messaggioNome").empty();
       $("#messaggioIndirizzo").empty();
       $("#messaggioDomicilio").empty();
@@ -81,12 +81,20 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       $("#messaggioEmailHR").empty();
       $("#messaggioNomeHR").empty();
       $("#messaggioTelefonoHR").empty();
+      $("#insertNome").css("border","1px solid #ccc");
+      $("#insertIndirizzo").css("border","1px solid #ccc");
+      $("#insertDomicilio").css("border","1px solid #ccc");
+      $("#insertTelefono").css("border","1px solid #ccc");
+      $("#insertEmailHR").css("border","1px solid #ccc");
+      $("#insertNomeHR").css("border","1px solid #ccc");
+      $("#insertTelefonoHR").css("border","1px solid #ccc");
 
       // regex e creazioni variabili
-      var regexTesto = /^[a-z,A-Z]+$/;
-      var regexDomicilio = /^([0-9]\s[a-z,A-Z])+$/;
-      var regexAlfa = /^([0-9,a-z,A-Z])+$/;
-      var regexTelefono = /^[+]?[0-9]$/;
+
+      var regexTesto = /^[a-z A-Z]+$/;
+      var regexDomicilio = /^(\d{4})\s([a-z ,A-Z])+$/;
+      var regexAlfa = /^([0-9 a-z,A-Z])+$/;
+      var regexTelefono = /^[+]?[\s 0-9 \s]+$/;
       var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
       nome = $("#insertNome").val();
@@ -209,12 +217,12 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
               <span class="glyphicon glyphicon-pencil"></span> inserisci
             </button>
           </div>
+          <?php } ?>
           <div class="col-sm-3 col-xs-6" style="margin-top:0px">
             <button type="submit" class="btn btn-primary col-xs-12">
               PDF
             </button>
           </div>
-          <?php } ?>
         </div>
         <div class="col-xs-12">
           <button type="button" class="btn btn-default btn-md" id="bCheckbox">Nascondi Checkbox</button>

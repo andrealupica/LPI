@@ -1,7 +1,7 @@
 <?php
 
     ###################################################################### download del file
-  if(isset($_POST["download"]) AND isset($_SESSION["email"]) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+  if(isset($_POST["download"]) AND isset($_SESSION["email"]) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
     $file = "uploads/".$_POST["download"];
 
     echo $file;

@@ -1,6 +1,6 @@
 <!-- pagina per la modifica dei formatori-->
 <?php
-if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin") && isset($_POST["modifica"])){
+if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin") && isset($_POST["modifica"])){
   //email
   $id = $_POST["modifica"];
   try{
@@ -52,10 +52,10 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       $("#insertTelefonoHR").css("border","1px solid #ccc");
 
       // regex e creazioni variabili
-      var regexTesto = /[a-z,A-Z]/;
-      var regexDomicilio = /([0-9]\s[a-z,A-Z])/;
-      var regexAlfa = /([0-9,a-z,A-Z])/;
-      var regexTelefono = /[+]?[0-9]$/;
+      var regexTesto = /^[a-z A-Z]+$/;
+      var regexDomicilio = /^(\d{4})\s([a-z ,A-Z])+$/;
+      var regexAlfa = /^([0-9 a-z,A-Z])+$/;
+      var regexTelefono = /^[+]?[\s 0-9 \s]+$/;
       var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
       nome = $("#insertNome").val();

@@ -1,7 +1,7 @@
 <?php
 
 // quando cerco di inserire un formatore
-if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){ // dato che il submit viene effettuato con il controllo non serve il controllo del set di tutto
+if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){ // dato che il submit viene effettuato con il controllo non serve il controllo del set di tutto
   $nome = $_POST["insertNome"];
   $indirizzo = $_POST["insertIndirizzo"];
   $domicilio = $_POST["insertDomicilio"];
@@ -71,7 +71,7 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
 }
 
 // se voglio eliminare un formatore
-if(isset($_POST["datoreCancellato"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+if(isset($_POST["datoreCancellato"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
   $id = $_POST["datoreCancellato"];
   try{
     $query= $conn->prepare("UPDATE datore set dat_flag=0  where dat_id=:id");
@@ -86,7 +86,7 @@ if(isset($_POST["datoreCancellato"]) AND isset($_SESSION['email']) AND ($_SESSIO
 }
 
 // se voglio modificare un formatoe
-if(isset($_POST["modifica"]) && isset($_POST["dati"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['email']=="admin")){
+if(isset($_POST["modifica"]) && isset($_POST["dati"]) AND isset($_SESSION['email']) AND ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin")){
   $id = $_POST["modifica"];
   echo $id;
   $nome = $_POST["insertNome"];

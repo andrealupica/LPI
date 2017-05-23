@@ -91,15 +91,21 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
 
     $("#bInsert").click(function(){
       var n = 0;
-      // svuota campi messaggio
+      // svuota campi messaggio + bordi
       $("#messaggioNome").empty();
       $("#messaggioTelefono").empty();
       $("#messaggioEmail").empty();
+      $("#insertNome").css("border","1px solid #ccc");
+      $("#insertTelefono").css("border","1px solid #ccc");
+      $("#insertEmail").css("border","1px solid #ccc");
+      $("#datoreSel").css("border","1px solid #ccc");
+
       // regex e creazioni variabili
-      var regexTesto = /^[a-z,A-Z]+$/;
-      var regexAlfa = /^([0-9,a-z,A-Z])+$/;
-      var regexTelefono = /^[+]?[0-9]+$/;
+      var regexTesto = /^[a-z A-Z]+$/;
+      var regexAlfa = /^([0-9 a-z,A-Z])+$/;
+      var regexTelefono = /^[+]?[\s 0-9 \s]+$/;
       var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
 
       nome = $("#insertNome").val();
       telefono = $("#insertTelefono").val();
@@ -115,7 +121,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
         n++;
       }
 
-      if(regexTelefono.test(telefono)){
+      if(regexTelefono.test(telefono) || telefono==""){
         $("#messaggioTelefono").append("il formato va bene");
       }
       else{
