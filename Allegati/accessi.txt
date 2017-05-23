@@ -1,0 +1,23 @@
+Database personale:
+indirizzo host gestore: efof.myd.infomaniak.com
+accesso PhpMyAdmin: https://h2-phpmyadmin.infomaniak.ch/MySQLAdmin/ 
+Server: h2mysql19
+User: efof_i13lupand
+Password: lupand1
+
+FTP personale:
+FTP host: efof.ftp.infomaniak.com port:21
+FTP user:  efof_i13lupa
+FTP pass:  I13Lupa_Admin
+
+Account sito web:
+URL accesso: http://www.samtinfo.ch/i13lupand/web/lpi oppure http://samtinfo.ch/i13lupand/web/lpi
+
+email:master@sito.ch
+password:master
+
+email:admin@sito.ch
+password:admin
+
+email:normale@sito.ch
+password:normale

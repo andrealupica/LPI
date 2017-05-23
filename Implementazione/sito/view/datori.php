@@ -83,10 +83,10 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       $("#messaggioTelefonoHR").empty();
 
       // regex e creazioni variabili
-      var regexTesto = /[a-z,A-Z]/;
-      var regexDomicilio = /([0-9]\s[a-z,A-Z])/;
-      var regexAlfa = /([0-9,a-z,A-Z])/;
-      var regexTelefono = /[+,0-9]$/;
+      var regexTesto = /^[a-z,A-Z]+$/;
+      var regexDomicilio = /^([0-9]\s[a-z,A-Z])+$/;
+      var regexAlfa = /^([0-9,a-z,A-Z])+$/;
+      var regexTelefono = /^[+]?[0-9]$/;
       var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
       nome = $("#insertNome").val();
@@ -102,6 +102,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
       else{
         $("#messaggioNome").append("inserire solo lettere o numeri");
+        $("#insertNome").css("border","1px solid red");
         n++;
       }
 
@@ -110,6 +111,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
       else{
         $("#messaggioIndirizzo").append("inserire solo lettere o numeri");
+        $("#insertIndirizzo").css("border","1px solid red");
         n++;
       }
 
@@ -118,6 +120,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
       else{
         $("#messaggioDomicilio").append("formato errato: CAP luogo");
+        $("#insertDomicilio").css("border","1px solid red");
         n++;
       }
 
@@ -126,6 +129,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
       else{
         $("#messaggioTelefono").append("inserire un numero di telefono valido");
+        $("#insertTelefono").css("border","1px solid red");
         n++;
       }
 
@@ -134,6 +138,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
       else{
         $("#messaggioNomeHR").append("inserire solo lettere o numeri");
+        $("#insertNomeHR").css("border","1px solid red");
         n++;
       }
 
@@ -142,6 +147,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
       else{
         $("#messaggioEmailHR").append("inserire una email valida");
+        $("#insertEmailHR").css("border","1px solid red");
         n++
       }
 
@@ -150,6 +156,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
       else{
         $("#messaggioTelefonoHR").append("inserire un numero di telefono valido");
+        $("#insertTelefonoHR").css("border","1px solid red");
         n++;
       }
 
@@ -162,7 +169,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
 
   });
   function modalInsert(){
-    // svuota campi messaggio
+    // svuota campi messaggio + correggi bordi
     $("#messaggioNome").empty();
     $("#messaggioIndirizzo").empty();
     $("#messaggioDomicilio").empty();
@@ -170,10 +177,17 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
     $("#messaggioEmailHR").empty();
     $("#messaggioNomeHR").empty();
     $("#messaggioTelefonoHR").empty();
+    $("#insertNome").css("border","1px solid #ccc");
+    $("#insertIndirizzo").css("border","1px solid #ccc");
+    $("#insertDomicilio").css("border","1px solid #ccc");
+    $("#insertTelefono").css("border","1px solid #ccc");
+    $("#insertEmailHR").css("border","1px solid #ccc");
+    $("#insertNomeHR").css("border","1px solid #ccc");
+    $("#insertTelefonoHR").css("border","1px solid #ccc");
   }
 
   </script>
-  <body class="body">
+  <body class="body" style="min-width:680px;">
     <?php include_once "menu.php";
     ?>
     <div class="container">
@@ -186,7 +200,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
           <div class="col-sm-4 col-xs-10">
             <div class="input-group">
               <span class="input-group-addon glyphicon glyphicon-search"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" id="search"></input>
+              <input type="text" class="form-control" name="ricerca" id="search"></input>
             </div>
           </div>
           <?php if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
@@ -243,7 +257,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
             <td class="tbindirizzo" style="display: none;"><?php echo $row["indirizzo"] ?></td>
             <td class="tbdomicilio" style="display: none;"><?php echo $row["domicilio"] ?></td>
             <td class="tbtelefono"><?php echo $row["telefono"] ?></td>
-            <td class="tbnomeHR"><?php echo $row["nomeHR"] ?></td>
+            <td class="tbnomeHR" style="display: none;"><?php echo $row["nomeHR"] ?></td>
             <td class="tbemailHR" style="display: none;"><?php echo $row["emailHR"] ?></td>
             <td class="tbtelefonoHR" style="display: none;"><?php echo $row["telefonoHR"] ?></td>
             <?php if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
@@ -394,6 +408,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
   <?php
 }
 else{
-  echo "formatori.php";
+    echo "<script>location.href='index.php'</script>";
 }
 ?>

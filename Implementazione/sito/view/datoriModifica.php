@@ -17,7 +17,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
   <!DOCTYPE html>
   <html lang="it">
   <head>
-    <title>Datori Modifica</title>
+    <title>Modifica Datori</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,11 +42,20 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       $("#messaggioNomeHR").empty();
       $("#messaggioTelefonoHR").empty();
 
+      // correzione dei bordi
+      $("#insertNome").css("border","1px solid #ccc");
+      $("#insertIndirizzo").css("border","1px solid #ccc");
+      $("#insertDomicilio").css("border","1px solid #ccc");
+      $("#insertTelefono").css("border","1px solid #ccc");
+      $("#insertEmailHR").css("border","1px solid #ccc");
+      $("#insertNomeHR").css("border","1px solid #ccc");
+      $("#insertTelefonoHR").css("border","1px solid #ccc");
+
       // regex e creazioni variabili
       var regexTesto = /[a-z,A-Z]/;
       var regexDomicilio = /([0-9]\s[a-z,A-Z])/;
       var regexAlfa = /([0-9,a-z,A-Z])/;
-      var regexTelefono = /[+,0-9]$/;
+      var regexTelefono = /[+]?[0-9]$/;
       var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
       nome = $("#insertNome").val();
@@ -62,6 +71,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       }
       else{
         $("#messaggioNome").append("inserire solo lettere o numeri");
+        $("#insertNome").css("border","1px solid red");
         n++;
       }
 
@@ -70,6 +80,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       }
       else{
         $("#messaggioIndirizzo").append("inserire solo lettere o numeri");
+        $("#insertIndirizzo").css("border","1px solid red");
         n++;
       }
 
@@ -78,6 +89,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       }
       else{
         $("#messaggioDomicilio").append("formato errato: CAP luogo");
+        $("#insertDomicilio").css("border","1px solid red");
         n++;
       }
 
@@ -86,6 +98,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       }
       else{
         $("#messaggioTelefono").append("inserire un numero di telefono valido");
+        $("#insertTelefono").css("border","1px solid red");
         n++;
       }
 
@@ -94,6 +107,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       }
       else{
         $("#messaggioNomeHR").append("inserire solo lettere o numeri");
+        $("#insertNomeHR").css("border","1px solid red");
         n++;
       }
 
@@ -102,6 +116,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       }
       else{
         $("#messaggioEmailHR").append("inserire una email valida");
+        $("#insertEmailHR").css("border","1px solid red");
         n++
       }
 
@@ -110,8 +125,10 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       }
       else{
         $("#messaggioTelefonoHR").append("inserire un numero di telefono valido");
+        $("#insertTelefonoHR").css("border","1px solid red");
         n++;
       }
+
       if(n==0){
         $("#formInsert").submit();
       }

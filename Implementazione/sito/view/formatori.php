@@ -96,9 +96,9 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       $("#messaggioTelefono").empty();
       $("#messaggioEmail").empty();
       // regex e creazioni variabili
-      var regexTesto = /[a-z,A-Z]/;
-      var regexAlfa = /([0-9,a-z,A-Z])/;
-      var regexTelefono = /[+,0-9]$/;
+      var regexTesto = /^[a-z,A-Z]+$/;
+      var regexAlfa = /^([0-9,a-z,A-Z])+$/;
+      var regexTelefono = /^[+]?[0-9]+$/;
       var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
       nome = $("#insertNome").val();
@@ -111,6 +111,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
       else{
         $("#messaggioNome").append("formato errato: inserire solo lettere");
+        $("#insertNome").css("border","1px solid red");
         n++;
       }
 
@@ -119,6 +120,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
       else{
         $("#messaggioTelefono").append("inserire un numero di telefono valido");
+        $("#insertTelefono").css("border","1px solid red");
         n++
       }
 
@@ -127,16 +129,16 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
       }
       else{
         $("#messaggioEmail").append("inserire una email valida");
+        $("#insertEmail").css("border","1px solid red");
         n++
       }
 
       if($("#datoreSel").val()<=0){
+        $("#datoreSel").css("border","1px solid red");
         n++;
       }
       if(n==0){
         $("#formInsert").submit();
-      }
-      else{
       }
     });
 
@@ -146,23 +148,27 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
     $("#messaggioNome").empty();
     $("#messaggioTelefono").empty();
     $("#messaggioEmail").empty();
+    $("#insertNome").css("border","1px solid #ccc");
+    $("#insertTelefono").css("border","1px solid #ccc");
+    $("#insertEmail").css("border","1px solid #ccc");
+    $("#datoreSel").css("border","1px solid #ccc");
   }
 
   </script>
-  <body class="body">
+  <body class="body" style="min-width:680px;">
     <?php include_once "menu.php";
     ?>
     <div class="container">
       <h1 class="col-xs-12">Formatori</h1>
       <br>
-      <form method="post" action="formatoriPDF.php">
+      <form method="post" action="formatoriPDF.php" target="_blank">
         <input type="hidden" name="pdf"/>
         <div class="col-xs-12">
           <label class="col-sm-2 col-xs-4 control-label">Ricerca: </label>
           <div class="col-sm-4 col-xs-8">
             <div class="input-group">
               <span class="input-group-addon glyphicon glyphicon-search"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" id="search"></input>
+              <input type="text" class="form-control" id="search" name="ricerca"></input>
             </div>
           </div>
           <?php if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
@@ -278,7 +284,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 id="titoloInserimento" class="modal-title">Creazione di un datore </h4>
+                  <h4 id="titoloInserimento" class="modal-title">Creazione di un formatore</h4>
                 </div>
                 <div class="modal-body">
                   <form id="formInsert" method="post" target="_blank">
@@ -366,6 +372,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
   <?php
 }
 else{
-  echo "formatori.php";
+    echo "<script>location.href='index.php'</script>";
 }
 ?>

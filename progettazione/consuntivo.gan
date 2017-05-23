@@ -71,6 +71,7 @@
             <task id="27" name="import file csv + salvataggio" meeting="false" start="2017-05-16" duration="1" complete="0" expand="true"/>
             <task id="49" name="pagina delle email + storico" meeting="false" start="2017-05-16" duration="3" complete="0" expand="true"/>
             <task id="93" name="gestione dati" meeting="false" start="2017-05-18" duration="3" complete="0" expand="true"/>
+            <task id="95" name="gesiione PDF" meeting="false" start="2017-05-22" duration="1" complete="0" expand="true"/>
             <task id="80" name="testcase + test" meeting="false" start="2017-05-22" duration="2" complete="0" expand="true"/>
         </task>
         <task id="52" name="consegna" color="#8cb6ce" meeting="true" start="2017-05-24" duration="0" complete="0" expand="true"/>
@@ -83,9 +84,9 @@
         <displaycolumn property-id="tpd7" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd8" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd12" order="-1" width="75" visible="false"/>
-        <displaycolumn property-id="tpd3" order="0" width="254" visible="true"/>
-        <displaycolumn property-id="tpd4" order="1" width="130" visible="true"/>
-        <displaycolumn property-id="tpd5" order="2" width="129" visible="true"/>
+        <displaycolumn property-id="tpd3" order="0" width="246" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="126" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="126" visible="true"/>
         <displaycolumn property-id="tpd6" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd10" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd11" order="-1" width="75" visible="false"/>

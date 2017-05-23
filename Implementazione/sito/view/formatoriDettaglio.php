@@ -19,7 +19,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && isset($_POST["dettag
   <!DOCTYPE html>
   <html lang="it">
   <head>
-    <title>Formatori Modifica</title>
+    <title>Dettaglio Formatore</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && isset($_POST["dettag
       $row = $query->fetch(PDO::FETCH_ASSOC);
     ?>
     <div class="container">
-      <h1 class="col-xs-12">Formatori Dettagli</h1>
+      <h1 class="col-xs-12">Dettaglio Formatore</h1>
       <br>
       <form method="post" action="formatorePDF.php" target="_blank">
         <div id="datoreDiv" class="col-md-4 col-xs-6">

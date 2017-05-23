@@ -25,7 +25,22 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   $html .= '<td>'.$_POST["insertIndirizzo"].'</td>';
   $html .= '<td>'.$_POST["insertDomicilio"].'</td>';
   $html .= '</tr>';
-  $html .= '<tr><td><b>osservazioni:</b></td>';
+  // aggiunta da riguardare
+  $html .= '<tr><td><b>Professione:</b></td>';
+  $html .= '<td><b>Data di inizio:</b></td>';
+  $html .= '<td><b>Anno di fine:</b></td>';
+  $html .= '<td><b>Anno scolastico:</b></td>';
+  $html .= '</tr>';
+  $html .= '<tr><td>'.$_POST["insertProfessione"].'</td>';
+  $html .= '<td>'.$_POST["insertInizio"].'</td>';
+  $html .= '<td>'.$_POST["insertFine"].'</td>';
+  $html .= '<td>'.$_POST["insertScolastico"].'</td>';
+  $html .= '</tr>';
+  $html .= '<tr><td><b>Sede:</b></td>';
+  $html .= '<td colspan="3">'.$_POST["insertSede"].'</td>';
+  $html .= '</tr>';
+  //
+  $html .= '<tr><td><b>Osservazioni:</b></td>';
   $html .= '<td colspan="3">'.$_POST["osservazioni"].'</td>';
   $html .= '</tr>';
   $html .= '</table><br><table border="1" cellpadding="5">';
@@ -37,9 +52,9 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   $html .= '<td>'.$_POST["insertDatoreIndirizzo"].'</td>';
   $html .= '<td>'.$_POST["insertDatoreDomicilio"].'</td>';
   $html .= '</tr>';
-  $html .= '<tr><td><b>Telefono datore:</b></td>';
-  $html .= '<td><b>Formatore:</b></td>';
-  $html .= '<td><b>Email formatore:</b></td>';;
+  $html .= '<tr><td><b>Datore:</b></td>';
+  $html .= '<td><b>Indirizzo datore:</b></td>';
+  $html .= '<td><b>Domicilio datore:</b></td>';
   $html .= '</tr>';
   $html .= '<tr><td>'.$_POST["insertDatoreTelefono"].'</td>';
   $html .= '<td>'.$_POST["insertFormatore"].'</td>';

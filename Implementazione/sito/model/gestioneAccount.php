@@ -74,8 +74,18 @@ if(isset($_POST["emailInsert"]) AND !empty($_POST["emailInsert"]) AND isset($_SE
         $flag->bindParam(':email',$email);
         $flag->bindParam(':password',$pass);
         $flag->execute();
+        if($query->execute()!=false){
+          $destinatario = $email;
+          $oggetto = "registrazione sito";
+          $message = "<html><body><p>sei stato registrato al sito, ecco le tue nuove credenziali</p><p>email: ".$email."</p><p>password: ".$password."</p></body></html>";
+          $headers = "MIME-Version: 1.0" . "\r\n";
+          $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+          $headers .= 'From: <webmaster@gaim.com>' . "\r\n";
+          mail($destinatario,$oggetto,$message,$headers);
+          echo "<script> location.href='gestioneAccount.php'</script>";
+        }
       }else{ // se è presente ma non cancellato
-
+        echo  "<script>document.getElementById('errori').innerHTML='l account esiste già quindi non è stato registrato';document.getElementById('errori').setAttribute('class','col-xs-6 alert alert-danger')</script>";
       }
     }
     else{ // crea nuovo account
@@ -83,6 +93,7 @@ if(isset($_POST["emailInsert"]) AND !empty($_POST["emailInsert"]) AND isset($_SE
       $query->bindParam(':email',$email);
       $query->bindParam(':password',$pass);
       if($query->execute()!=false){
+        // invio dell'email in caso di non errore
         $destinatario = $email;
         $oggetto = "registrazione sito";
         $message = "<html><body><p>sei stato registrato al sito, ecco le tue nuove credenziali</p><p>email: ".$email."</p><p>password: ".$password."</p></body></html>";
@@ -90,9 +101,9 @@ if(isset($_POST["emailInsert"]) AND !empty($_POST["emailInsert"]) AND isset($_SE
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $headers .= 'From: <webmaster@gaim.com>' . "\r\n";
         mail($destinatario,$oggetto,$message,$headers);
+        echo "<script> location.href='gestioneAccount.php'</script>";
       }
     }
-    echo "<script> location.href='gestioneAccount.php'</script>";
   }
 	catch(PDOException $e)
 	{

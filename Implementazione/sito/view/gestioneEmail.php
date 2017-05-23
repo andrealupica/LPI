@@ -40,13 +40,14 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
       destinatari = $("#selectDestinatario").val();
       gruppo = $("#selectGruppo").val();
       if(messaggio!="" && oggetto != "" && (destinatari !=null || gruppo!=null)){
-        alert("invia: "+messaggio+" "+oggetto+" "+destinatari+" "+gruppo);
+        //alert("invia: "+messaggio+" "+oggetto+" "+destinatari+" "+gruppo);
+        $("#formInvia").submit();
       }
     });
 
     $("#bElimina").click(function(){
       if($("#gElimina").val()!=null || $("#gElimina")!=""){
-        alert($("#gElimina").val());
+        //alert($("#gElimina").val());
         $("#formModifica").submit();
       }
     });
@@ -62,18 +63,15 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
       valore=$("#gruppoModificato").val();
       $("#gElimina").val(valore);
       $("#modificaGruppo").empty();
-      //alert("prova");
       $.ajax({
         type:"POST",
         url: "model/gestioneEmail2.php",
         data:{gruppoModificato:valore},
         success: function(result){
-          // seleziono tutto
+          // seleziono tutto i formatori e inoltre se sono presenti nel gruppo oppure no
           result=JSON.parse(result);
-          //alert(result);
           for (var i = 0; i < result.length; i++) {
             risultato = result[i].split("/");
-            //console.log(valore+" "+risultato[1]);
             if(risultato[2]==1){
               $("#modificaGruppo").append("<option selected='true' value='"+risultato[1]+"'>"+risultato[0]+"</option>");
             }
@@ -83,6 +81,12 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
             $('.selectpicker1').selectpicker('refresh');
           }
       }});
+    });
+
+    $("#storico").change(function(){
+      id=$(this).val();
+      url = "storicoEmail.php?id="+id;
+      window.open(url, '_blank');
     });
   });
   </script>
@@ -95,18 +99,19 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
       <div class="col-xs-12" id="errori">
       </div>
       <div class="col-xs-12">
-        <div class="col-sm-4 col-xs-4" style="margin-top: 0px;">
+        <div class="col-sm-4 col-xs-12" style="margin-top: 0px;">
           <button class="btn btn-primary col-xs-12" type="button" return="false" data-toggle="modal" data-target="#myModalI">
             <span class="glyphicon  glyphicon-pencil"></span> Crea gruppo
           </button>
         </div>
-        <div class="col-sm-4 col-xs-4" style="margin-top: 0px;">
+        <div class="col-sm-4 col-xs-12" style="margin-top: 0px;">
           <button class="btn btn-primary col-xs-12" type="button" return="false" data-toggle="modal" data-target="#myModalM" >
             <span class="glyphicon glyphicon-edit"></span> Gestisci gruppo
           </button>
         </div>
-        <div class="col-xs-4" style="padding-left:0px;margin-top:0px">
+        <div class="col-md-4 col-xs-12" style="padding-left:0px;margin-top:0px">
           <select class="selectpicker col-xs-12" name="storico" id="storico">
+              <option disabled selected value id="selectNull"> -- storico email -- </option>
               <?php
               try{
                 $query = $conn->prepare("SELECT ema_oggetto AS 'oggetto',ema_id AS 'id' from email where ema_flag=1 order by ema_oggetto");
@@ -125,12 +130,13 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
           </select>
         </div>
       </div>
-      <form method="post">
+      <form method="post" id="formInvia">
+        <input type="hidden" name="inviaInput" value="invia" id="inviaInput"/>
         <div class="col-xs-12">
           <div class="col-xs-12">
             <label>Destinatario: </label>
           </div>
-          <div class="col-xs-6" style="padding-left:0px;">
+          <div class="col-md-6 col-xs-12" style="padding-left:0px;">
             <select class="selectpicker col-xs-12" multiple data-actions-box="true" name="selectDestinatario[]" id="selectDestinatario">
                 <?php
                 try{
@@ -149,7 +155,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
               ?>
             </select>
           </div>
-          <div class="col-xs-6">
+          <div class="col-xs-12 col-md-6" style="padding-left:0px">
             <select class="selectpicker col-xs-12" multiple data-actions-box="true" name="selectGruppo[]" id="selectGruppo">
                 <?php
                 try{
@@ -168,27 +174,25 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
               ?>
             </select>
           </div>
-          <div class="col-xs-6">
-          </div>
         </div>
         <div class="col-xs-12">
           <div class="col-xs-12">
             <label>Oggetto:</label>
           </div>
           <div class="col-xs-7">
-            <input type="text" required="true" required="true" id="oggetto" placeholder="Oggetto" class="form-control"/>
+            <input type="text" required="true" required="true" id="oggetto" name="oggetto" placeholder="Oggetto" class="form-control"/>
           </div>
         </div>
         <div class="col-xs-12">
           <div class="col-xs-12">
             <label>Messaggio: </label>
           </div>
-          <div class="col-xs-8">
-            <textarea type="text" style="margin-top: 0px;" required="true" required="true" id="messaggio" placeholder="inserisci il messaggio" class="form-control"></textarea>
+          <div class="col-md-8 col-xs-12">
+            <textarea type="text" style="margin-top: 0px;" required="true" required="true" name="messaggio" id="messaggio" placeholder="inserisci il messaggio" class="form-control"></textarea>
           </div>
         </form>
-        <div class="col-xs-2">
-          <button type="button" id="bInvia" required="true" class="btn btn-primary">Invia</button>
+        <div class="col-xs-12 col-md-2">
+          <button type="button" id="bInvia" required="true" class="btn btn-primary col-xs-12">Invia</button>
         </div>
       </div>
     </div>

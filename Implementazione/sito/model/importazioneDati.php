@@ -5,8 +5,6 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
    $grandezz=0;
    $file = $_FILES['idCSV']['tmp_name'];
    $handle = fopen($file,"r");
-   if($handle == false) {
-   }
    $data = null;
    fgets($handle);
 
@@ -73,6 +71,7 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
            //echo $e;
          }
        }
+       // altrimenti prendo semplicemente il suo id
        else{
          $row = $query->fetch(PDO::FETCH_ASSOC);
          $sedeId=$row["id"];
@@ -107,7 +106,7 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
            //echo $e;
          }
        }
-       else{
+       else{ // altrimenti prendo direttamente il suo id
          $row = $query->fetch(PDO::FETCH_ASSOC);
          $gruppoId=$row["id"];
        }
@@ -341,11 +340,13 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
     fclose($handle);
     #################################################################### dopo aver chiusto il file lo salvo sul server e salvo il nome nel db
 
+    // carico il file sul server
     $target_dir = "uploads/";
     $target_file = $target_dir.date("d-m-Y_H-i-s")."-".basename($_FILES["idCSV"]["name"]);
     move_uploaded_file($_FILES['idCSV']['tmp_name'], $target_file);
 
     try{
+      // salvo nel db il nome del file e chi lo ha importato
       $query = $conn->prepare("INSERT into file_(fil_nome,ute_email) values(:nome,:email)");
       $nome = date("d-m-Y_H-i-s")."-".basename($_FILES["idCSV"]["name"]);
       $query->bindParam(':nome',$nome);
@@ -355,7 +356,8 @@ if(isset($_POST["Import"]) && !empty($_POST["Import"]) AND isset($_SESSION['emai
     catch(PDOException $e){
       //echo $e;
     }
-    echo "<script> location.href='apprendisti.php'</script>";
+    // ricarico la pagina
+    echo "<script> location.href='gestioneCSV.php'</script>";
   }
 }
 

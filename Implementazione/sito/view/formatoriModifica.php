@@ -17,7 +17,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
   <!DOCTYPE html>
   <html lang="it">
   <head>
-    <title>Formatori Modifica</title>
+    <title>Modifica Formatore</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,10 +33,14 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
     // quando clicco su salva
     $("#bSalva").click(function(){
       var n = 0;
-      // svuota campi messaggio
+      // svuota campi messaggio + stile bordo
       $("#messaggioNome").empty();
       $("#messaggioTelefono").empty();
       $("#messaggioEmail").empty();
+      $("#insertNome").css("border","1px solid #ccc");
+      $("#insertTelefono").css("border","1px solid #ccc");
+      $("#insertEmail").css("border","1px solid #ccc");
+      $("#datoreSel").css("border","1px solid #ccc");
 
       // regex e creazioni variabili
       var regexTesto = /[a-z,A-Z]/;
@@ -46,7 +50,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       var regexAlfa = /([0-9,a-z,A-Z])/;
       var regexAnno = /(\d{4})+$/;
       var regexNumero = /(\d{1})+$/;
-      var regexTelefono = /[+,0-9]$/;
+      var regexTelefono = /[+]?[0-9]$/;
       var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
       nome = $("#insertNome").val();
@@ -59,24 +63,30 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       }
       else{
         $("#messaggioNome").append("formato errato: inserire solo lettere");
+        $("#insertNome").css("border","1px solid red");
         n++;
       }
-      if(regexTelefono.test(telefono) OR telefono==""){
+
+      if(regexTelefono.test(telefono)){
         $("#messaggioTelefono").append("il formato va bene");
       }
       else{
         $("#messaggioTelefono").append("inserire un numero di telefono valido");
+        $("#insertTelefono").css("border","1px solid red");
         n++
       }
+
       if(regexEmail.test(email)){
         $("#messaggioEmail").append("il formato va bene");
       }
       else{
         $("#messaggioEmail").append("inserire una email valida");
+        $("#insertEmail").css("border","1px solid red");
         n++
       }
 
       if($("#datoreSel").val()<=0){
+        $("#datoreSel").css("border","1px solid red");
         n++;
       }
       // se non ci sono errori di formattazione submitta
@@ -94,7 +104,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']==
       $row = $query->fetch(PDO::FETCH_ASSOC);
     ?>
     <div class="container">
-      <h1 class="col-xs-12">Formatori Modifica</h1>
+      <h1 class="col-xs-12">Modifica Formatore</h1>
       <br>
       <form id="formInsert" method="post">
         <div class="row">

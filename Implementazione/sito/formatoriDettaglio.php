@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION["email"]) ){
+if(isset($_SESSION["email"])){
   include_once "connection.php";
   include_once "view/formatoriDettaglio.php";
   include_once "model/formatori.php";

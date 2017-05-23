@@ -36,9 +36,10 @@ if(isset($_SESSION["email"])){?>
           <ul class="dropdown-menu">
             <li><a href="gestioneAccount.php">Account</a></li>
             <li><a href="gestioneEmail.php">Email</a></li>
+            <li><a href="gestioneCSV.php">CSV</a></li>
             <?php
              if($_SESSION["tipo"]=="master"){ ?>
-            <li><a href="#">Dati</a></li>
+            <li><a href="gestioneDati.php">Dati</a></li>
             <?php } ?>
           </ul>
         </li>

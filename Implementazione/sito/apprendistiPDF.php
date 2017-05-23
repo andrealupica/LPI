@@ -76,14 +76,17 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   $where.=" where ";
   if(!empty($_POST["ricerca"])){
     $ricerca = $_POST["ricerca"];
-    $option = explode(" ",$ricerca);
-    for($i=0;$i<count($option);$i++){
-      $where .="(app.app_idContratto LIKE '%".$option[$i]."%' OR app.app_nome LIKE '%".$option[$i]."%' OR app.app_telefono LIKE '%".$option[$i]."%'
-      OR app.app_dataNascita LIKE '%".$option[$i]."%' OR   app.app_rappresentante LIKE '%".$option[$i]."%' OR app.app_statuto LIKE '%".$option[$i]."%'
-      OR app.app_indirizzo LIKE '%".$option[$i]."%' OR app.app_domicilio LIKE '%".$option[$i]."%' OR app.app_osservazioni LIKE '%".$option[$i]."%' OR
-      app.app_professione LIKE '%".$option[$i]."%' OR app.app_flag LIKE '%".$option[$i]."%' OR app.app_annoScolastico LIKE '%".$option[$i]."%' OR
-      app.app_annoFine LIKE '%".$option[$i]."%' OR app.app_dataInizio LIKE '%".$option[$i]."%'
-      OR sed.sed_nome LIKE '%".$option[$i]."%' OR dat.dat_nome LIKE '%".$option[$i]."%' OR form.for_email LIKE '%".$option[$i]."%')";
+    $option = explode(" ",$ricerca); //divido le parole
+    for($i=0;$i<count($option);$i++){ // faccio passare parola per parola
+      $where .="(app.app_idContratto LIKE '%".$option[$i]."%' OR app.app_nome LIKE '%".$option[$i]."%'
+        OR app.app_telefono LIKE '%".$option[$i]."%' OR app.app_dataNascita LIKE '%".$option[$i]."%' 
+        OR   app.app_rappresentante LIKE '%".$option[$i]."%' OR app.app_statuto LIKE '%".$option[$i]."%'
+        OR app.app_indirizzo LIKE '%".$option[$i]."%' OR app.app_domicilio LIKE '%".$option[$i]."%'
+        OR app.app_osservazioni LIKE '%".$option[$i]."%' OR app.app_professione LIKE '%".$option[$i]."%'
+        OR app.app_flag LIKE '%".$option[$i]."%' OR app.app_annoScolastico LIKE '%".$option[$i]."%'
+        OR app.app_annoFine LIKE '%".$option[$i]."%' OR app.app_dataInizio LIKE '%".$option[$i]."%'
+        OR sed.sed_nome LIKE '%".$option[$i]."%' OR dat.dat_nome LIKE '%".$option[$i]."%'
+        OR form.for_email LIKE '%".$option[$i]."%')";
       $where.=" AND ";
     }
   }
@@ -183,7 +186,7 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
     }
     if(isset($_POST["dataInizio"])){
       $dato = explode('-', $row["dataInizio"]);
-      $html.= "<td>".$dato[2].'.'.$dato[1].'.'.$dato[0.]."</td>";
+      $html.= "<td>".$dato[2].'.'.$dato[1].'.'.$dato[0]."</td>";
     }
     if(isset($_POST["dataFine"])){
       $html.="<td>".$row['dataFine']."</td>";

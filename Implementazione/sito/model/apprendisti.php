@@ -22,8 +22,8 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
 
   // formattazione date da it a db + correzioni
   $inizio1 = explode('.', $inizio);
-  if($inizio1[2]>31){
-    $inizio1[2]=0000;
+  if($inizio1[0]>31){
+    $inizio1[0]=00;
   }
   if($inizio1[1]>12){
     $inizio1[1]=00;
@@ -31,8 +31,8 @@ if(isset($_POST["insert"])  AND isset($_SESSION['email']) AND ($_SESSION['tipo']
   $inizio = $inizio1[2].'-'.$inizio1[1].'-'.$inizio1[0];
 
   $nascita1 = explode('.', $nascita);
-  if($nascita1[2]>31){
-    $nascita1[2]=0000;
+  if($nascita1[0]>31){
+    $nascita1[0]=00;
   }
   if($nascita1[1]>12){
     $nascita1[1]=00;
@@ -203,10 +203,23 @@ if(isset($_POST["modifica"]) && isset($_POST["dati"]) AND isset($_SESSION['email
   $gruppo = $_POST["gruppoSel"];
   $osservazioni = $_POST["osservazioni"];
 
-  // cambio la formattazione delle date
+  // formattazione date da it a db + correzioni
   $inizio1 = explode('.', $inizio);
+  if($inizio1[0]>31){ // giorno
+    $inizio1[0]=00;
+  }
+  if($inizio1[1]>12){ // mese
+    $inizio1[1]=00;
+  }
   $inizio = $inizio1[2].'-'.$inizio1[1].'-'.$inizio1[0];
+
   $nascita1 = explode('.', $nascita);
+  if($nascita1[0]>31){ // giorno
+    $nascita1[0]=00;
+  }
+  if($nascita1[1]>12){ // mese
+    $nascita1[1]=00;
+  }
   $nascita = $nascita1[2].'-'.$nascita1[1].'-'.$nascita1[0];
 
   // controllo se la sede modificata esiste

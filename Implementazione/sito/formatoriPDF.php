@@ -35,8 +35,8 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
     $ricerca = $_POST["ricerca"];
     $option = explode(" ",$ricerca);
     for($i=0;$i<count($option);$i++){
-      $where .="(form.for_nome LIKE '%".$option[$i]."%' OR form.form_email LIKE '%".$option[$i]."%'
-      OR form.form_telefono LIKE '%".$option[$i]."%' OR dat.dat_nome LIKE '%".$option[$i]."%')";
+      $where .="(form.for_nome LIKE '%".$option[$i]."%' OR form.for_email LIKE '%".$option[$i]."%'
+      OR form.for_telefono LIKE '%".$option[$i]."%' OR dat.dat_nome LIKE '%".$option[$i]."%')";
       $where.=" AND ";
     }
   }

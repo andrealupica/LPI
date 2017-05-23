@@ -31,7 +31,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["dettagl
   <!DOCTYPE html>
   <html lang="it">
   <head>
-    <title>Apprendisti Dettaglio</title>
+    <title>Dettaglio Apprendista</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">

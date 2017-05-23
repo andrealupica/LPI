@@ -47,11 +47,13 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) AND ($_SESSION["tipo"]==
       }
       else{
         $("#messaggioInsert").append("la email non è valida");
+        $("#idEmailInsert").css("border","1px solid red");
       }
     });
   });
   function modalInsert(){
     $("#messaggioInsert").empty();
+    $("#idEmailInsert").css("border","1px solid #ccc");
   }
   function selectEmail(obj){
 		id = obj.id;
@@ -72,7 +74,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) AND ($_SESSION["tipo"]==
   }
 
   </script>
-  <body class="body">
+  <body class="body" style="min-width:550px;">
     <?php include_once "menu.php";
     ?>
     <div class="container">
@@ -91,6 +93,8 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) AND ($_SESSION["tipo"]==
             <span class="glyphicon glyphicon-pencil"></span> registra utente
           </button>
         </div>
+      </div>
+      <div class="col-xs-12" id="errori">
       </div>
         <table class="table" id="table" style="margin-top:10px">
           <thead>

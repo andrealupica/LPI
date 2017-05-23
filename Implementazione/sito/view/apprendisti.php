@@ -110,14 +110,14 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
     $("#bInsert").click(function(){
       var n = 0;
       // regex e creazioni variabili
-      var regexTesto = /[a-z,A-Z]/;
-      var regexData = /(\d{2})\.(\d{2})\.(\d{4})+$/;
-      var regexContratto = /(\d{4})\.(\d{4})+$/;
-      var regexDomicilio = /([0-9]\s[a-z,A-Z])/;
-      var regexAlfa = /([0-9,a-z,A-Z])/;
-      var regexAnno = /(\d{4})+$/;
-      var regexNumero = /(\d{1})+$/;
-      var regexTelefono = /[+,0-9]$/;
+      var regexTesto = /^[a-zA-Z]+$/;
+      var regexData = /^(\d{2})\.(\d{2})\.(\d{4})+$/;
+      var regexContratto = /^(\d{4})\.(\d{4})+$/;
+      var regexDomicilio = /^([0-9]\s[a-z,A-Z])+$/;
+      var regexAlfa = /^([0-9,a-z,A-Z])+$/;
+      var regexAnno = /^(\d{4})+$/;
+      var regexNumero = /^(\d{1})+$/;
+      var regexTelefono = /^[+]?[0-9]+$/;
 
       nome = $("#insertNome").val();
       nascita = $("#insertNascita").val();
@@ -154,6 +154,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioNome").append("formato errato: inserire solo lettere");
+        $("#insertNome").css("border","1px solid red");
         n++;
       }
 
@@ -162,6 +163,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioNascita").append("formato errato: dd.mm.yyyy");
+        $("#insertNascita").css("border","1px solid red");
         n++;
       }
 
@@ -170,6 +172,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioContratto").append("formato errato: nnnn.nnnn");
+        $("#insertContratto").css("border","1px solid red");
         n++;
       }
 
@@ -178,6 +181,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioStatuto").append("inserire solo lettere");
+        $("#insertStatuto").css("border","1px solid red");
         n++;
       }
 
@@ -186,6 +190,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioIndirizzo").append("inserire lettere o numeri");
+        $("#insertIndirizzo").css("border","1px solid red");
         n++;
       }
 
@@ -194,6 +199,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioDomicilio").append("formato errato: CAP luogo");
+        $("#insertDomicilio").css("border","1px solid red");
         n++
       }
 
@@ -202,6 +208,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioTelefono").append("inserire un numero di telefono valido");
+        $("#insertTelefono").css("border","1px solid red");
         n++
       }
 
@@ -210,6 +217,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioProfessione").append("inserire solo lettere");
+        $("#insertProfessione").css("border","1px solid red");
         n++;
       }
 
@@ -218,6 +226,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioSede").append("inserire un nome, solo lettere");
+        $("#insertSede").css("border","1px solid red");
         n++;
       }
 
@@ -226,6 +235,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioRappresentante").append("inserire solo lettere");
+        $("#insertRappresentante").css("border","1px solid red");
         n++;
       }
 
@@ -234,6 +244,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioInizio").append("formato errato: dd.mm.yyyy");
+        $("#insertInizio").css("border","1px solid red");
         n++;
       }
 
@@ -242,6 +253,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       }
       else{
         $("#messaggioFine").append("formato errato: yyyy");
+        $("#insertFine").css("border","1px solid red");
         n++;
       }
 
@@ -251,10 +263,27 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       else{
         $("#messaggioScolastico").append("formato errato: inserisci un numero");
         n++;
+        $("#insertScolastico").css("border","1px solid red");
       }
-      if($("#formatoreSel").val()!="" && $("#datoreSel").val()>0 && $("#gruppoSel").val()>0){
+
+      if($("#formatoreSel").val()!="" && $("#formatoreSel").val()>0 ){
       }
       else{
+        $("#formatoreSel").css("border","1px solid red");
+        n++;
+      }
+
+      if($("#datoreSel").val()>0){
+      }
+      else{
+        $("#datoreSel").css("border","1px solid red");
+        n++;
+      }
+
+      if($("#gruppoSel").val()>0){
+      }
+      else{
+        $("#gruppoSel").css("border","1px solid red");
         n++;
       }
       // se non ci sono errori submitta
@@ -268,7 +297,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
   });
   // quando viene cliccato il bottone di inserimento parte la funzione
   function modalInsert(){
-    // svuota campi messaggio
+    // svuota campi messaggio + corregi bordi
     $("#messaggioNome").empty();
     $("#messaggioNascita").empty();
     $("#messaggioContratto").empty();
@@ -282,6 +311,22 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
     $("#messaggioInizio").empty();
     $("#messaggioFine").empty();
     $("#messaggioScolastico").empty();
+    $("#insertNome").css("border","1px solid #ccc");
+    $("#insertNascita").css("border","1px solid #ccc");
+    $("#insertContratto").css("border","1px solid #ccc");
+    $("#insertStatuto").css("border","1px solid #ccc");
+    $("#insertIndirizzo").css("border","1px solid #ccc");
+    $("#insertDomicilio").css("border","1px solid #ccc");
+    $("#insertTelefono").css("border","1px solid #ccc");
+    $("#insertProfessione").css("border","1px solid #ccc");
+    $("#insertSede").css("border","1px solid #ccc");
+    $("#insertRappresentante").css("border","1px solid #ccc");
+    $("#insertInizio").css("border","1px solid #ccc");
+    $("#insertFine").css("border","1px solid #ccc");
+    $("#insertScolastico").css("border","1px solid #ccc");
+    $("#gruppoSel").css("border","1px solid #ccc");
+    $("#formatoreSel").css("border","1px solid #ccc");
+    $("#datoreSel").css("border","1px solid #ccc");
   }
 
   </script>
@@ -362,16 +407,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
       </form>
       <div class="col-xs-12" id="errori">
       </div>
-      <?php if($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master"){ ?>
-      <div class="col-xs-12" style="margin-bottom:10px">
-        <form role="form" action="" method="post" name="form1" enctype="multipart/form-data">
-           <fieldset>
-               <input name="idCSV" type="file" id="idCSV" accept=".csv" />
-               <input type="submit" name="Import" value="Importa " class="btn btn-primary" />
-           </fieldset>
-        </form>
-      </div>
-      <?} ?>
       <table data-role="table" data-mode="columntoggle" class="ui-responsive table table-striped table-bordered" id="table" >
         <thead>
           <tr id="th">
@@ -665,6 +700,6 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
   <?php
 }
 else{
-  echo "<script>location.href='apprendisti.php'</script>";
+  echo "<script>location.href='index.php'</script>";
 }
 ?>

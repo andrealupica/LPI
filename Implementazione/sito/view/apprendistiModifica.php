@@ -28,7 +28,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
   <!DOCTYPE html>
   <html lang="it">
   <head>
-    <title>Apprendisti modifica</title>
+    <title>Modifica Apprendisti</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -85,7 +85,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       fine = $("#insertFine").val();
       scolastico = $("#insertScolastico").val();
 
-      // svuota campi messaggio
+      // svuota campi messaggio + correggi bordi
       $("#messaggioNome").empty();
       $("#messaggioNascita").empty();
       $("#messaggioContratto").empty();
@@ -99,12 +99,29 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       $("#messaggioInizio").empty();
       $("#messaggioFine").empty();
       $("#messaggioScolastico").empty();
+      $("#insertNome").css("border","1px solid #ccc");
+      $("#insertNascita").css("border","1px solid #ccc");
+      $("#insertContratto").css("border","1px solid #ccc");
+      $("#insertStatuto").css("border","1px solid #ccc");
+      $("#insertIndirizzo").css("border","1px solid #ccc");
+      $("#insertDomicilio").css("border","1px solid #ccc");
+      $("#insertTelefono").css("border","1px solid #ccc");
+      $("#insertProfessione").css("border","1px solid #ccc");
+      $("#insertSede").css("border","1px solid #ccc");
+      $("#insertRappresentante").css("border","1px solid #ccc");
+      $("#insertInizio").css("border","1px solid #ccc");
+      $("#insertFine").css("border","1px solid #ccc");
+      $("#insertScolastico").css("border","1px solid #ccc");
+      $("#formatoreSel").css("border","1px solid #ccc");
+      $("#gruppoSel").css("border","1px solid #ccc");
+      $("#datoreSel").css("border","1px solid #ccc");
 
       if(regexTesto.test(nome)){
         $("#messaggioNome").append("il formato va bene");
       }
       else{
         $("#messaggioNome").append("formato errato: inserire solo lettere");
+        $("#insertNome").css("border","1px solid red");
         n++;
       }
 
@@ -113,6 +130,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioNascita").append("formato errato: dd.mm.yyyy");
+        $("#insertNascita").css("border","1px solid red");
         n++;
       }
 
@@ -121,6 +139,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioContratto").append("formato errato: nnnn.nnnn");
+        $("#insertContratto").css("border","1px solid red");
         n++;
       }
 
@@ -129,6 +148,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioStatuto").append("inserire solo lettere");
+        $("#insertStatuto").css("border","1px solid red");
         n++;
       }
 
@@ -137,6 +157,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioIndirizzo").append("inserire lettere o numeri");
+        $("#insertIndirizzo").css("border","1px solid red");
         n++;
       }
 
@@ -145,6 +166,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioDomicilio").append("formato errato: CAP luogo");
+        $("#insertDomicilio").css("border","1px solid red");
         n++
       }
 
@@ -153,6 +175,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioTelefono").append("inserire un numero di telefono valido");
+        $("#insertTelefono").css("border","1px solid red");
         n++
       }
 
@@ -161,6 +184,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioProfessione").append("inserire solo lettere");
+        $("#insertProfessione").css("border","1px solid red");
         n++;
       }
 
@@ -169,6 +193,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioSede").append("inserire un nome, solo lettere");
+        $("#insertSede").css("border","1px solid red");
         n++;
       }
 
@@ -177,6 +202,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioRappresentante").append("inserire solo lettere");
+        $("#insertRappresentante").css("border","1px solid red");
         n++;
       }
 
@@ -185,6 +211,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioInizio").append("formato errato: dd.mm.yyyy");
+        $("#insertInizio").css("border","1px solid red");
         n++;
       }
 
@@ -193,6 +220,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioFine").append("formato errato: yyyy");
+        $("#insertFine").css("border","1px solid red");
         n++;
       }
 
@@ -201,6 +229,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioScolastico").append("formato errato: inserisci un numero");
+        $("#insertScolastico").css("border","1px solid red");
         n++;
       }
       if($("#formatoreSel").val()!=""){
@@ -208,6 +237,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else{
         $("#messaggioFormatore").append("la scelta non va bene");
+        $("#formatoreSel").css("border","1px solid red");
         n++;
       }
 
@@ -216,6 +246,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else {
         $("#messaggioDatore").append("la scelta non va bene");
+        $("#datoreSel").css("border","1px solid red");
         n++;
       }
       if($("#gruppoSel").val()>0){
@@ -223,6 +254,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION['tipo']=="
       }
       else {
         $("#messaggioAnno").append("la scelta non va bene");
+        $("#gruppoSel").css("border","1px solid red");
         n++;
       }
       // se non ci sono errori submitta
