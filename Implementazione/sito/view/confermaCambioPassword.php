@@ -1,4 +1,4 @@
-<!-- pagina di login-->
+<!-- pagina di conferma cambio password-->
 <!DOCTYPE html>
 <html lang="it">
 <head>

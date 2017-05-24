@@ -1,4 +1,4 @@
-<!-- pagina per la gestione degli apprendisti-->
+<!-- pagina per la gestione del file csv-->
 <?php
 if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master")){
   try{

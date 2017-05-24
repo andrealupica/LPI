@@ -10,7 +10,7 @@ FTP host: efof.ftp.infomaniak.com port:21
 FTP user:  efof_i13lupa
 FTP pass:  I13Lupa_Admin
 
-Account sito web:
+Sito web:
 URL accesso: http://www.samtinfo.ch/i13lupand/web/lpi oppure http://samtinfo.ch/i13lupand/web/lpi
 
 email:master@sito.ch

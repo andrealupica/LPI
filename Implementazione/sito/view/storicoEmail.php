@@ -1,4 +1,4 @@
-<!-- pagina per la gestione degli apprendisti-->
+<!-- pagina per lo storico delle email -->
 <?php
 if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="admin" OR $_SESSION["tipo"]=="master") AND isset($_GET["id"]) AND is_numeric($_GET["id"]) ){
   ?>

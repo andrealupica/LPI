@@ -1,4 +1,4 @@
-<!-- pagina per la visione degli apprendisti-->
+<!-- pagina per i dettagli degli apprendisti-->
 <?php
 if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && isset($_POST["dettaglio"])){
   $dettaglio = $_POST["dettaglio"];

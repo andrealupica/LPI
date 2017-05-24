@@ -1,4 +1,4 @@
-<!-- pagina per la modifica dei formatori-->
+<!-- pagina per la modifica dei datori-->
 <?php
 if(($_SESSION['email']!="" OR $_SESSION['email']!=null)  && ($_SESSION['tipo']=="master" OR $_SESSION['tipo']=="admin") && isset($_POST["modifica"])){
   //email

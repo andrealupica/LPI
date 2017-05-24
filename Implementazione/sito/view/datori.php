@@ -1,4 +1,4 @@
-<!-- pagina per la gestione dei formatori-->
+<!-- pagina per la visione dei datori-->
 <?php
 if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){ // da riguardare
   try{
