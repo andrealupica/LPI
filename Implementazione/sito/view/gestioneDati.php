@@ -47,7 +47,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && $_SESSION["tipo"]=="m
         $("#bCheckboxFormatore").text("Visualizza Tabella Formatore");
       }
       else{
-        $("#bCheckboxAccount").text("Nascondi Tabella Formatore");
+        $("#bCheckboxFormatore").text("Nascondi Tabella Formatore");
       }
     });
 
@@ -59,7 +59,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && $_SESSION["tipo"]=="m
         $("#bCheckboxDatore").text("Visualizza Tabella Datore");
       }
       else{
-        $("#bCheckboxAccount").text("Nascondi Tabella Datore");
+        $("#bCheckboxDatore").text("Nascondi Tabella Datore");
       }
     });
 
@@ -126,7 +126,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && $_SESSION["tipo"]=="m
       }
       catch(PDOException $e)
       {
-        echo $e;
+      //  echo $e;
       }
       if($query->rowCount()!=0){
         ?>

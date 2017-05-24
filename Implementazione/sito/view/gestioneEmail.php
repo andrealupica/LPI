@@ -26,7 +26,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
   $(document).ready(function(){
     $("#bCrea").click(function(){
         if($("#createGruppo").val()!=null && $("#nomeGruppo").val()!=""){
-          alert("invia");
+          //alert("invia");
           $("#formCreazione").submit();
         }
         else{

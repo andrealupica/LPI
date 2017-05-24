@@ -2,7 +2,7 @@
 
 // quando si cerca di cancellare definitivamente un dato
   if(isset($_POST["cancellaDato"]) AND isset($_SESSION["email"]) AND $_SESSION['tipo']=="master"){
-    echo $_POST["cancellaDato"];
+    // echo $_POST["cancellaDato"];
     $dati = $_POST["cancellaDato"];
     $dato = explode('/',$dati); // separo il separatore dal dato che mi serve per eliminare
 
@@ -23,9 +23,9 @@
 
     // se si vuole eliminare un apprendista
     if($dato[0] == "apprendista"){
-      echo $dato[1];
+      //echo $dato[1];
       $dum = explode("-",$dato[1]);
-      echo "<br>con".$dum[0]." fine".$dum[1]." sco".$dum[2];
+      //echo "<br>con".$dum[0]." fine".$dum[1]." sco".$dum[2];
       try{
         $query = $conn->prepare("DELETE from apprendista where app_idContratto=:contratto AND app_annoFine=:fine AND app_annoScolastico=:scolastico");
         $query->bindParam(':contratto',$dum[0]);
@@ -62,7 +62,7 @@
         $query = $conn->prepare("DELETE from datore where dat_id =:id");
         $query->bindParam(':id',$dato[1]);
         $query->execute();
-        echo "eseguito";
+      //  echo "eseguito";
         echo "<script> location.href='gestioneDati.php'</script>";
       }
       // se ritorna un errore vuol dire che è foreign key.

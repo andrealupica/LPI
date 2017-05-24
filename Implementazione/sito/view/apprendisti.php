@@ -283,7 +283,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null)){
         $("#insertScolastico").css("border","1px solid red");
       }
 
-      if($("#formatoreSel").val()!=""){
+      if($("#formatoreSel").val()>0){
       }
       else{
         $("#formatoreSel").css("border","1px solid red");
