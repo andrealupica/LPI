@@ -50,7 +50,7 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   $query = $conn->prepare($completeQuery);
   $query->execute();
 
-
+  // creazione tabella e prima riga
   $html = '
   <table border="1" cellpadding="5">
     <thead>
@@ -58,27 +58,30 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
   if(isset($_POST["nome"])){
     $html .= '<th><b>Formatore:</b></th>';
   }
-  if(isset($_POST["telefono"])){
-    $html .= '<th><b>Telefono:</b></th>';
-  }
   if(isset($_POST["email"])){
     $html .= '<th><b>Email:</b></th>';
+  }
+  if(isset($_POST["telefono"])){
+    $html .= '<th><b>Telefono:</b></th>';
   }
   if(isset($_POST["datore"])){
     $html .= '<th><b>Datore:</b></th>';
   }
 
+
     $html.="</tr>";
+
+    // inserimento dei dati nella tabella
   while($row = $query->fetch(PDO::FETCH_ASSOC)){
     $html.="<tr>";
     if(isset($_POST["nome"])){
       $html.="<td>".$row['formatore']."</td>";
     }
-    if(isset($_POST["telefono"])){
-      $html.="<td>".$row['telefono']."</td>";
-    }
     if(isset($_POST["email"])){
       $html.="<td>".$row['email']."</td>";
+    }
+    if(isset($_POST["telefono"])){
+      $html.="<td>".$row['telefono']."</td>";
     }
     if(isset($_POST["datore"])){
       $html.="<td>".$row['datore']."</td>";

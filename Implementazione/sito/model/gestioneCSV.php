@@ -17,6 +17,7 @@
         readfile($file);
         exit;
     }
+    // altrimenti segnala l'errore
     else{
       echo  "<script>document.getElementById('errori').innerHTML='il file non esiste';document.getElementById('errori').setAttribute('class','col-xs-6 alert alert-danger')</script>";
     }

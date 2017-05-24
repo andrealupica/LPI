@@ -79,7 +79,7 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
     $option = explode(" ",$ricerca); //divido le parole
     for($i=0;$i<count($option);$i++){ // faccio passare parola per parola
       $where .="(app.app_idContratto LIKE '%".$option[$i]."%' OR app.app_nome LIKE '%".$option[$i]."%'
-        OR app.app_telefono LIKE '%".$option[$i]."%' OR app.app_dataNascita LIKE '%".$option[$i]."%' 
+        OR app.app_telefono LIKE '%".$option[$i]."%' OR app.app_dataNascita LIKE '%".$option[$i]."%'
         OR   app.app_rappresentante LIKE '%".$option[$i]."%' OR app.app_statuto LIKE '%".$option[$i]."%'
         OR app.app_indirizzo LIKE '%".$option[$i]."%' OR app.app_domicilio LIKE '%".$option[$i]."%'
         OR app.app_osservazioni LIKE '%".$option[$i]."%' OR app.app_professione LIKE '%".$option[$i]."%'
@@ -153,7 +153,8 @@ if(isset($_SESSION["email"]) AND isset($_POST["pdf"])){
     $html .= '<th><b>Formatore:</b></th>';
   }
 
-    $html.="</tr>";
+  $html.="</tr>";
+  // inserimento dei dati
   while($row = $query->fetch(PDO::FETCH_ASSOC)){
     $html.="<tr>";
     if(isset($_POST["contratto"])){
