@@ -30,7 +30,7 @@ if(($_SESSION['email']!="" OR $_SESSION['email']!=null) && ($_SESSION["tipo"]=="
           $("#formCreazione").submit();
         }
         else{
-          alert($("#createGruppo").val()+" "+ $("#nomeGruppo").val());
+          //alert($("#createGruppo").val()+" "+ $("#nomeGruppo").val());
         }
     });
 
